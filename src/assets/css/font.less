@@ -1,0 +1,15 @@
+/*font-size*/
+
+.fbold {
+	font-weight: bold;
+}
+// 生成从10到24的字体大小， 每次递增1
+// @sizes: range(10, 24, 1);
+// 自定义需要的字体大小
+@sizes: 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 22, 24;
+each(@sizes, {
+	.fsize@{value} {
+		font-size: @value * 1px
+	}
+}
+)

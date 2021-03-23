@@ -1,0 +1,32 @@
+/* 间距 */
+.pad12 {
+	padding: 12px;
+}
+
+.plr15 {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+// 需要的变局尺寸
+@values: 5, 10, 12, 15, 20;
+// class的key和对应的属性
+.enums() {
+	pt: padding-top;
+	pr: padding-right;
+	pb: padding-bottom;
+	pl: padding-left;
+	mt: margin-top;
+	mr: margin-right;
+	mb: margin-bottom;
+	ml: margin-left;
+}
+// 遍历生成，比如.pl10{padding-left: 10px;}
+each(.enums(), .(@v1, @k1) {
+	each(@values, {
+		.@{k1}@{value} {
+			@{v1}: (@value * 1px);
+		}
+	}
+	)
+}
+)

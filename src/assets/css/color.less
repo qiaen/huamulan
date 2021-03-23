@@ -1,0 +1,28 @@
+@import "./var.less";
+/*color*/
+.grdcolor {
+	background: -webkit-linear-gradient(0deg, #ff9c58, #fe707e);
+}
+.bgfff {
+	background-color: #fff;
+}
+.bgmain {
+	background: #f1f5f9 url("../@{main-bg}") no-repeat bottom right;
+}
+// 采用的颜色以及对应的色值
+@colors: {
+	fff: @fff;
+	blue: @blue;
+	org: @org;
+	999: @999;
+	666: @666;
+	333: @333;
+	red: @red;
+	green: @green;
+}
+each(@colors, {
+	.fc@{key} {
+		color: @value;
+	}
+}
+)

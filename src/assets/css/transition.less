@@ -1,0 +1,23 @@
+/*fade-transform*/
+.fade-transform-leave-active, .fade-transform-enter-active {
+	transition: all .4s;
+}
+.fade-transform-enter {
+	opacity: 0;
+	transform: translate3d(-24px, 0, 0);
+}
+.fade-transform-leave-to {
+	opacity: 0;
+	transform: translate3d(24px, 0, 0);
+}
+/* 右侧滑出 */
+.slide-right-enter-active, .slide-right-leave-active {
+	transition: transform 0.36s;
+}
+.slide-right-enter, .slide-right-leave-to {
+	transform: translate3d(100%, 0, 0);
+}
+/* 其他 */
+.transition3 {
+	-webkit-transition: 0.3s;
+}

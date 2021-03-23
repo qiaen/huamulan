@@ -1,0 +1,95 @@
+@import "./flex.less";
+@import "./color.less";
+@import "./transition.less";
+@import "./elementui.less";
+@import "./scrollbar.less";
+@import "./font.less";
+@import "./space.less";
+@import "./tag.less";
+html, body {
+	color: #333;
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	overflow: hidden;
+}
+* {
+	-webkit-font-smoothing: antialiased;
+	padding: 0;
+	margin: 0;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-overflow-scrolling: touch;
+	font-family: "PingFangSC-Regular", "Helvetica Neue", Helvetica, STHeiTi, "微软雅黑", sans-serif;
+}
+.borbox {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.input, .button {
+	line-height: normal;
+	-webkit-appearance: none;
+	appearance: none;
+	background: none;
+	outline: none;
+	border: none;
+	border-radius: 0;
+}
+ul, li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	color: #333;
+}
+.pointer {
+	cursor: pointer;
+}
+.pointer:active {
+	opacity: 0.7;
+}
+.forbid {
+	cursor: not-allowed;
+}
+.hideit {
+	overflow: hidden;
+}
+.scroll-x {
+	overflow-x: auto;
+}
+.scroll-y {
+	overflow-y: auto;
+	scroll-behavior: smooth;
+}
+.relative {
+	position: relative;
+}
+.absolute {
+	position: absolute;
+}
+.fixed {
+	position: fixed;
+}
+.txright {
+	text-align: right;
+}
+.full-content {
+	width: 100%;
+	height: 100%;
+}
+.width100 {
+	width: 100%;
+}
+.height100 {
+	height: 100%;
+}
+.lineh16 {
+	line-height: 1.6;
+}
+
+@textMaxWidth: 450px;
+.text-ellipsis{
+  max-width: @textMaxWidth;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

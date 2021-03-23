@@ -1,0 +1,85 @@
+<template>
+	<menu class="menu shrink0 fcfff hideit scroll-y">
+		<div class="width100 menu-logo">
+			<a :style="{width: isCollapse ? '42px' : ''}" class="fxmiddle flex hideit height100">
+				<img src="@img/data-sync.png" alt="">
+			</a>
+		</div>
+		<!-- 菜单列表，默认不折叠，当前选中 在store common内配置 -->
+		<el-menu :default-openeds="defaultOpeneds" :default-active="currentTab.path" background-color="#21325e" text-color="#fff" active-text-color="#fff" :collapse="isCollapse" :collapse-transition="false" :router="true">
+			<template v-for="item in menus">
+				<el-submenu :key="item.name" v-if="item.children && item.children.length" :index="item.path">
+					<template #title>
+						<i :class="item.icon"></i>
+						<span>{{item.name}}</span>
+					</template>
+					<el-menu-item-group>
+						<template #title>{{item.name}}</template>
+						<el-menu-item v-for="c in item.children" :index="c.path" :key="c.name">
+							<i :class="c.icon"></i>
+							<span>{{c.name}}</span>
+						</el-menu-item>
+					</el-menu-item-group>
+				</el-submenu>
+				<el-menu-item :key="item.name" :index="item.path" v-else>
+					<i :class="item.icon"></i>
+                    <template #title><span>{{item.name}}</span></template>
+				</el-menu-item>
+			</template>
+		</el-menu>
+	</menu>
+</template>
+<script>
+import { ref, reactive,computed } from 'vue'
+import { useStore } from 'vuex'
+export default {
+	name: 'menu',
+	setup() {
+        let defaultOpeneds = ref('')
+        let currentTab = reactive({
+            path: ''
+        })
+		let store = useStore()
+		let menus = computed(() => store.getters.menus)
+		console.log(menus)
+		return {
+			isCollapse: computed(() => store.getters.isCollapse),
+            currentTab,
+            defaultOpeneds,
+            menus
+        }
+	}
+}
+</script>
+<style lang="less">
+.menu {
+	background: #21325e;
+	.menu-logo {
+		height: 50px;
+		/*background: #1bc9b3;*/
+		background: #293d71;
+	}
+	.menu-logo img {
+		height: 30px;
+		margin-left: 20px;
+	}
+
+	.el-menu-item-group__title {
+		display: none !important;
+	}
+	.iconfont {
+		color: #fff;
+	}
+
+}
+// 作用于全局的菜单，如果有别的地方用到，可以使用弹出菜单的自定义类名属性：popper-class
+.el-menu {
+	border-right: none;
+	.is-active {
+		background-color: #409EFF !important;
+	}
+	.iconfont {
+		margin-right: 4px;
+	}
+}
+</style>

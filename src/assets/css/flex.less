@@ -1,0 +1,66 @@
+/* 
+* 通用flex, fxcenter,fxmiddle,dcenter 
+* 在没有设定宽度时候不会占用全部宽度，若需要，
+* 可以配合classs flex
+*/
+.fxcenter {
+	display: inline-flex;
+	justify-content: center;
+}
+.fxmiddle {
+	display: inline-flex;
+	align-items: center;
+}
+.wrapit {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.nowrap {
+	white-space: nowrap;
+}
+.breakall {
+	word-break: break-all;
+}
+.center {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+.middle {
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+// 超出不换行
+.fxnowrap {
+	flex-wrap: nowrap;
+}
+// 超出换行
+.fxwrap {
+	flex-wrap: wrap;
+}
+.fxcolumn {
+	flex-direction: column;
+}
+.flex-view {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+.fxrow {
+	flex-direction: row !important;
+}
+.flex1 {
+	flex-grow: 1;
+}
+.flex {
+	display: flex;
+}
+.between {
+	justify-content: space-between;
+}
+.shrink0 {
+	flex-shrink: 0;
+}

@@ -1,0 +1,191 @@
+.zm-table {
+	// 在表格上设置height属性，可以定义内部滚动，注意每行不要高度不一，否则切换页面会照成对不齐
+	// 表头行样式
+	thead th {
+		background: #f9fafb;
+		color: #343a43;
+		height: 40px;
+		padding: 0;
+		font-size: 14px;
+		font-weight: 700;
+		.cell {
+			line-height: 40px;
+			// 超出不换行
+			white-space: nowrap;
+		}
+	}
+	// 行样式
+	tbody td {
+		height: 44px;
+		padding: 0;
+		font-size: 13px;
+		color: #555;
+		.cell {
+			max-height: 43px;
+		}
+	}
+	// 带拖动的表格
+	&.el-table--border {
+		thead th {
+			// 去除表头内竖边线
+			border-right-color: transparent;
+			.cell {
+				&::before {
+					content: '';
+					float: right;
+					margin-top: 11px;
+					transform: translate(10px, 0);
+					width: 0;
+					height: 18px;
+					border-right: 1px dashed #999
+				}
+			}
+			// 去除最后一个的边线
+			&:nth-last-child(1), &:nth-last-child(2) {
+				.cell {
+					&::before {
+						display: none;
+					}
+				}
+			}
+		}
+		// 行样式
+		tbody td {
+			// 去除表格内竖边线
+			border-right-color: transparent;
+		}
+	}
+	// 表格内文字按钮文字颜色，不包含禁用效果
+	.el-button--text:not(.is-disabled) {
+		font-size: 13px;
+		color: #2c5cc5;
+	}
+	// 表格内a标签颜色加深
+	a {
+		color: #2c5cc5;
+		cursor: pointer;
+	}
+	// 下拉菜单样式
+	.el-dropdown-link {
+		cursor: pointer;
+		color: #2c5cc5;
+		font-size: 13px;
+		margin-left: 10px;
+	}
+	.el-icon-arrow-down {
+		font-size: 13px;
+	}
+	&.dark-table {
+		pointer-events: none;
+		&:before, &:after {
+			display: none;
+		}
+		&, & tr, & th {
+			background-color: #303133;
+
+		}
+		td, th {
+			height: 34px;
+			color: #fff;
+			border-bottom-color: #666;
+		}
+	}
+}
+// 只用于作业登记页面
+.checkin-tooltip.el-tooltip__popper {
+	padding-top: 0;
+	&>div {
+		margin: 0 12px;
+	}
+}
+// 弹出框
+.zm-dialog {
+	// 头部样式
+	.el-dialog__header, .el-message-box__header {
+		background: #21325e;
+		padding: 12px 18px;
+		border-radius: 2px 2px 0 0;
+	}
+	.el-dialog__headerbtn {
+		top: 13px;
+	}
+	.el-dialog__title, .el-message-box__title {
+		font-size: 16px;
+	}
+	.el-dialog__title, .el-dialog__close, .el-message-box__title {
+		color: #fff;
+	}
+	// 主要内容
+	.el-dialog__body {
+		min-height: 200px;
+	}
+	&.hideit {
+		.el-dialog {
+			margin-top: 9vh !important;
+			height: 82vh;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			.el-dialog__body {
+				flex-grow: 1;
+				overflow: auto;
+				margin: 20px 15px 5px 15px;
+				padding: 0;
+				&>section, &>div {
+					position: relative;
+					min-height: 100%;
+				}
+			}
+		}
+	}
+	&.el-message-box {
+		border: none;
+		.el-message-box__headerbtn {
+			top: 9px;
+			.el-message-box__close {
+				color: #fff;
+			}
+
+		}
+	}
+}
+// 多选选择器tags标签
+.el-tag--mini {
+	// 用于解决左右边距不一致，未上下剧中，标签颜色不够明显的问题
+	padding: 0 8px 0 5px;
+	line-height: 18px;
+	.el-select__tags-text {
+		color: #606266
+	}
+}
+// form表单
+.el-form {
+	// 用于解决行内form 输入框和按钮上下未对齐问题
+	&--inline .el-form-item {
+		vertical-align: middle;
+	}
+}
+// 折叠面板下的表头悬浮样式，深蓝色
+.el-collapse-item__header:hover {
+	&, .form-line label {
+		color: #2c5cc5;
+	}
+	&:active {
+		opacity: 0.7;
+	}
+}
+// 所有被禁用的input文字颜色，增加文字颜色深度
+.el-input.is-disabled .el-input__inner, .el-input-group__append {
+	color: #606266;
+}
+// 所有被禁用的复选框样式，增加颜色深度，跟容易区分
+.el-checkbox__input {
+	&.is-disabled.is-checked .el-checkbox__inner::after {
+		border-color: #606266;
+	}
+}
+// 自定义底部页码
+.zm-pagination {
+	text-align: right;
+	padding-top: 10px;
+}

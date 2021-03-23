@@ -33,7 +33,7 @@ export default {
 	clear: function(name: string) {
 		localStorage.removeItem(name)
 	},
-	time: function(): uumber {
+	time: function(): number {
 		return new Date().getTime()
 	}
 };

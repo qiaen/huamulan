@@ -15,12 +15,12 @@
           :label="item.label"
           :name="item.path"
         >
-			<template #label>
-				<span class="pointer center">
-					<i :class="item.icon" class="label-icon fsize15"></i>
-					{{ item.label }}
-				</span>
-			</template>
+          <template #label>
+            <span class="pointer center">
+              <i :class="item.icon" class="label-icon fsize15"></i>
+              {{ item.label }}
+            </span>
+          </template>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -48,64 +48,70 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive, ref, watch, computed } from "vue"
-import { useStore } from 'vuex'
-import { useRoute, onBeforeRouteLeave, useRouter, onBeforeRouteUpdate } from 'vue-router'
+import { reactive, ref, watch, computed } from "vue";
+import { useStore } from "vuex";
+import {
+  useRoute,
+  onBeforeRouteLeave,
+  useRouter,
+  onBeforeRouteUpdate,
+} from "vue-router";
 export default {
   name: "tabs",
   setup() {
-	let route = useRoute()
-	let router = useRouter()
-	let store = useStore()
-	let menuTabs: array = computed(()=> store.getters.menuTabs)
+    let route = useRoute();
+    let router = useRouter();
+    let store = useStore();
+    let menuTabs: any = computed(() => store.getters.menuTabs);
     function selectTab(tab: any) {
-		router.push(tab.paneName)
-	}
+      router.push(tab.paneName);
+    }
     function removeTab(path: string) {
-		store.dispatch("layout/RemoveTab", { path })
-				.then(() => {
-					// 删除tab成功后，如果删除的是当前查看的，就回到首页
-					if (path === route.path) {
-						// 回到已打开tab的最后一个
-						let len = menuTabs.length;
-						if (len) {
-							selectTab({ name: menuTabs[len - 1].path });
-						} else {
-							selectTab({ name: "/" });
-						}
-					}
-				})
-				.catch(() => {});
-	}
-	/**根据类型关闭tab */
+      store
+        .dispatch("layout/RemoveTab", { path })
+        .then(() => {
+          // 删除tab成功后，如果删除的是当前查看的，就回到首页
+          if (path === route.path) {
+            // 回到已打开tab的最后一个
+            let len = menuTabs.length;
+            if (len) {
+              selectTab({ name: menuTabs[len - 1].path });
+            } else {
+              selectTab({ name: "/" });
+            }
+          }
+        })
+        .catch(() => {});
+    }
+    /**根据类型关闭tab */
     function closeTabs(type: any) {
-		store.dispatch("layout/CloseTabs", type).then(() => {
-				// 删除tab成功后，如果删除的是当前查看的，就回到首页
-				if (type === "all") {
-					selectTab({ name: "/" });
-				}
-			})
-	}
-	let currentTab = computed(()=> store.getters.currentTab.path)
-	function setCurrentTab() {
-		store.dispatch("layout/SetCurrentTab", {
-			label: route.name,
-			path: route.path,
-			icon: route.meta.icon,
-		});
-	}
-	
-	// onBeforeRouteLeave((leaveGuard: NavigationGuard)=>{
-	// 	console.log(leaveGuard)
-	// })
-	onBeforeRouteUpdate((updateGuard: NavigationGuard)=>{
-		setCurrentTab()
-	})
-	setCurrentTab()
+      store.dispatch("layout/CloseTabs", type).then(() => {
+        // 删除tab成功后，如果删除的是当前查看的，就回到首页
+        if (type === "all") {
+          selectTab({ name: "/" });
+        }
+      });
+    }
+    let currentTab = computed(() => store.getters.currentTab.path);
+    function setCurrentTab() {
+      store.dispatch("layout/SetCurrentTab", {
+        label: route.name,
+        path: route.path,
+        icon: route.meta.icon,
+      });
+    }
+
+    onBeforeRouteLeave((leaveGuard: NavigationGuard)=>{
+    	console.log(leaveGuard)
+    })
+    onBeforeRouteUpdate((updateGuard: NavigationGuard) => {
+      setCurrentTab();
+    });
+    setCurrentTab();
     return {
       selectTab,
-	  currentTab,
-	  removeTab,
+      currentTab,
+      removeTab,
       menuTabs,
       closeTabs,
     };

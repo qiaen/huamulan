@@ -6,7 +6,7 @@
 			</a>
 		</div>
 		<!-- 菜单列表，默认不折叠，当前选中 在store common内配置 -->
-		<el-menu :default-openeds="defaultOpeneds" :default-active="currentTab.path" background-color="#21325e" text-color="#fff" active-text-color="#fff" :collapse="isCollapse" :collapse-transition="false" :router="true">
+		<el-menu :default-openeds="defaultOpeneds" :default-active="currentTab" background-color="#21325e" text-color="#fff" active-text-color="#fff" :collapse="isCollapse" :collapse-transition="false" :router="true">
 			<template v-for="item in menus">
 				<el-submenu :key="item.name" v-if="item.children && item.children.length" :index="item.path">
 					<template #title>
@@ -30,23 +30,17 @@
 	</menu>
 </template>
 <script>
-import { ref, reactive,computed } from 'vue'
+import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 export default {
 	name: 'menu',
 	setup() {
-        let defaultOpeneds = ref('')
-        let currentTab = reactive({
-            path: ''
-        })
-		let store = useStore()
-		let menus = computed(() => store.getters.menus)
-		console.log(menus)
+		let store = useStore() 
 		return {
 			isCollapse: computed(() => store.getters.isCollapse),
-            currentTab,
-            defaultOpeneds,
-            menus
+            currentTab: computed(() => store.getters.currentTab.path),
+            defaultOpeneds: computed(() => store.getters.defaultOpeneds),
+            menus: computed(() => store.getters.menus)
         }
 	}
 }

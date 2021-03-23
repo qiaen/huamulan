@@ -7,7 +7,7 @@ export default {
 		if (cut < 0) {
 			return this.back(val)
 		} else {
-			let exp: string = o.substring(cut + 12)
+			let exp: number = parseFloat(o.substring(cut + 12))
 			if (exp < this.time()) {
 				this.clear(name)
 				return ''
@@ -23,7 +23,7 @@ export default {
 			return JSON.parse(val)
 		}
 	},
-	set: function(name: string, val: any, sec: number) {
+	set: function(name: string, val: any, sec: number|void) {
 		val = typeof(val) === "object" ? JSON.stringify(val) : val
 		if (sec) {
 			val += ';expiretime=' + (this.time() + sec * 1000)

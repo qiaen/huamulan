@@ -1,5 +1,5 @@
-import Storage from '../../untils/Storage.ts'
-import { CurrentTab } from '../interface.ts'
+import Storage from '../../untils/Storage'
+import { CurrentTab } from '../interface'
 const state = {
     menus: [],
     /**是否折叠，true：收起，false：展开 */
@@ -8,7 +8,7 @@ const state = {
         personName: '兰兰  '
     },
     // 当前选中的tab
-	currentTab: <CurrentTab>{ path: '', label: '' },
+	currentTab: { path: '', label: '' },
     /*
 	 * 缓存的keep-alive页面name，不在此列则不缓存
 	 * 注意：为了方便管理，这里的name采用的是path，所以组件命名也要用path
@@ -17,22 +17,24 @@ const state = {
     cachedViews: ['/'],
     // 已打开的tab菜单, [{key:value}]
 	menuTabs: [{ path: '/', label: 'Dashboard', icon: 'iconfont icon-dashboard' }],
+	/**当前需要展开的菜单, [value] */
+	defaultOpeneds: []
 }
 const actions = {
     // 修改项目菜单
-	SetMenus({ commit }, menus: array) {
+	SetMenus({ commit }: any, menus: any) {
 		commit('SET_MENUS', menus)
 	},
 	// 新增一个tab
-	SetMenusTab({ commit }, tab) {
+	SetMenusTab({ commit }: any, tab: any) {
 		commit('SET_MENUS_TAB', tab)
 	},
 	// 设定选中的tab
-	SetCurrentTab({ commit }, tab: CurrentTab) {
+	SetCurrentTab({ commit }: any, tab: any) {
 		commit('SET_CURRENT_TAB', tab)
 	},
 	// 删除一个tab
-	RemoveTab({ commit }, tab) {
+	RemoveTab({ commit }: any, tab: any) {
 		// tabs只有一个时不能删除/
 		if (tab.path === '/' && state.menuTabs.length <= 1) {
 			return Promise.reject('tabs只有一个时不能删除/')
@@ -40,16 +42,16 @@ const actions = {
 		commit('REMOVE_TAB', tab)
 	},
 	// 菜单是否折叠
-	SetMenuCollapse({ commit }) {
+	SetMenuCollapse({ commit }: any) {
 		commit('SET_MENU_COLLAPSE')
 	},
 	// 关闭所有，关闭其他tabs
-	CloseTabs({ commit }, type) {
+	CloseTabs({ commit }: any, type: string) {
 		commit('SET_CLOSE_TABS', type)
 	}
 }
 const mutations = {
-    SET_MENUS(state: any, menus: array) {
+    SET_MENUS(state: any, menus: any) {
 		state.menus = menus
 	},
 	SET_MENUS_TAB(state: any, tab: any) {
@@ -85,7 +87,7 @@ const mutations = {
 			let menus = state.menus
 			for (let item of menus) {
 				if (item.child && item.child.length) {
-					if (item.child.some(m => m.path === tab.path)) {
+					if (item.child.some((m: any) => m.path === tab.path)) {
 						state.defaultOpeneds = [item.path]
 						break
 					}

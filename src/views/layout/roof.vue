@@ -18,7 +18,7 @@
 			<el-dropdown class="fxmiddle">
 				<span class="el-dropdown-link">
 					<a class="middle acc-avatar pointer height100">
-						<img src="@img/dt-s12.png" alt="">
+						<img src="/img/dt-s12.png" alt="">
 					</a>
 				</span>
                 <template #dropdown>

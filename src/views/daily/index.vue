@@ -1,6 +1,6 @@
 <template>
 	<section class="daily bgfff center">
-		<img class="nothing" src="@img/nothing.png" alt="">
+		<img class="nothing" src="/img/nothing.png" alt="">
 	</section>
 </template>
 <style lang="less">

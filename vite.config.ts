@@ -30,22 +30,13 @@ export default defineConfig({
 					'^/api': '/api' //重写接口
 				},
 				cookieDomainRewrite: ''
-			},
-			// 测试环境登录接口用，发布后用不到
-			'/sso': {
-				target: base.target,
-				changeOrigin: true, //是否跨域
-				pathRewrite: {
-					'^/sso': '/sso' //重写接口
-				},
-				cookieDomainRewrite: ''
 			}
 		}
 	},
   alias: {
     "/@/": resolve("./src"),
-    "/@assets/": resolve("./src/assets"),
-    "/@img": resolve("./src/assets/img"),
+    "@assets": resolve("./src/assets/"),
+    "@img": resolve("./src/assets/img/"),
     "@views": resolve("./src/views"),
     "@components": resolve("./src/components/"),
     "@api": resolve("./src/api/"),

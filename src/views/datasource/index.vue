@@ -1,5 +1,5 @@
 <template>
     <div>
-        dashboard.vue
+        datasource
     </div>
 </template>

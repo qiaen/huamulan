@@ -1,4 +1,4 @@
-import Storage from '../../untils/Storage'
+import Storage from '@units/Storage'
 import { CurrentTab } from '../interface'
 const state = {
     menus: [],

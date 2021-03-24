@@ -5,7 +5,6 @@ export default function () {
     return {
         menus,
         SetMenus: (menus: array) => {
-            // console.log(menus)
             console.log(store)
             store.dispatch('layout/SetMenus', menus)
         }

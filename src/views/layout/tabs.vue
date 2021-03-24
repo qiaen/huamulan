@@ -105,7 +105,7 @@ export default {
     	console.log(leaveGuard)
     })
     onBeforeRouteUpdate((updateGuard: NavigationGuard) => {
-      setCurrentTab();
+      // setCurrentTab();
     });
     setCurrentTab();
     return {
@@ -115,7 +115,7 @@ export default {
       menuTabs,
       closeTabs,
     };
-  },
+  }
 };
 </script>
 <style lang="less">

@@ -1,5 +1,5 @@
 <template>
     <div>
-        dashboard.vue
+        operate.vue
     </div>
 </template>

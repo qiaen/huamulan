@@ -8,14 +8,14 @@
 		<!-- 菜单列表，默认不折叠，当前选中 在store common内配置 -->
 		<el-menu :default-openeds="defaultOpeneds" :default-active="currentTab" background-color="#21325e" text-color="#fff" active-text-color="#fff" :collapse="isCollapse" :collapse-transition="false" :router="true">
 			<template v-for="item in menus">
-				<el-submenu :key="item.name" v-if="item.children && item.children.length" :index="item.path">
+				<el-submenu :key="item.name" v-if="item.child && item.child.length" :index="item.path">
 					<template #title>
 						<i :class="item.icon"></i>
 						<span>{{item.name}}</span>
 					</template>
 					<el-menu-item-group>
 						<template #title>{{item.name}}</template>
-						<el-menu-item v-for="c in item.children" :index="c.path" :key="c.name">
+						<el-menu-item v-for="c in item.child" :index="c.path" :key="c.name">
 							<i :class="c.icon"></i>
 							<span>{{c.name}}</span>
 						</el-menu-item>

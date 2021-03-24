@@ -97,7 +97,7 @@ router.beforeEach(async (to, from) => {
       console.log((window as any).needAuth)
       if ((window as any).needAuth) {
         console.log('verify the login information at initialization')
-        let menus = []
+        let menus: any = []
         await store.dispatch('api/GetUserInfo').then(res => {
           if (res.code == 200) {
             window.needAuth = false
@@ -125,6 +125,15 @@ router.beforeEach(async (to, from) => {
         // return { path: '/login' }
       }
     }
-  
 });
+/** 例如页面分析 */
+router.afterEach(to => {
+  console.log(to)
+  store.dispatch("layout/SetCurrentTab", {
+    label: to.name,
+    path: to.path,
+    icon: to.meta.icon
+  });
+  document.title = to.name?`${to.name} - 花木兰` : to.name
+})
 export default router;

@@ -48,13 +48,11 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive, ref, watch, computed } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import {
   useRoute,
-  onBeforeRouteLeave,
   useRouter,
-  onBeforeRouteUpdate,
 } from "vue-router";
 export default {
   name: "tabs",
@@ -100,14 +98,11 @@ export default {
         icon: route.meta.icon,
       });
     }
-
-    onBeforeRouteLeave((leaveGuard: NavigationGuard)=>{
-    	console.log(leaveGuard)
-    })
-    onBeforeRouteUpdate((updateGuard: NavigationGuard) => {
-      setCurrentTab();
-    });
-    setCurrentTab();
+    /** 虽然现在通过afterEach在router/index.ts更好的解决了，但是不知道为什么这里无法生效，备注：onBeforeRouteUpdate生效 */
+    // onBeforeRouteLeave((leaveGuard: NavigationGuard)=>{
+    // 	console.log(leaveGuard)
+    // })
+    // onBeforeRouteUpdate((updateGuard: NavigationGuard) => { });
     return {
       selectTab,
       currentTab,

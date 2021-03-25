@@ -4,21 +4,21 @@
 		<menus class="menu shrink0"></menus>
 		<!-- 右侧主内容区域 -->
 		<main class="main flex-view hideit">
+			<!-- {{cachedViews}} -->
 			<!-- 头部 -->
 			<!-- 顶部功能区 -->
 			<roof class="shrink0 layout-roof"></roof>
 			<!-- 主内容 -->
 			<div class="bgmain relative hideit flex-view">
 				<tabs></tabs>
-					<!-- 页面缓存，注意事项看下方 cachedViews-->
-					<router-view class="bgfff main-content absolute flex-view" v-slot="{ Component }">
-							<keep-alive :include="cachedViews">
-								<transition name="fade-transform" appear>
-									<component :is="Component" />
-								</transition>
-							</keep-alive>
-					</router-view>
-					
+				<!-- 页面缓存，注意事项看下方 cachedViews-->
+				<router-view class="bgfff main-content absolute flex-view" v-slot="{ Component }">
+						<keep-alive :include="cachedViews">
+							<transition name="fade-transform" appear>
+								<component :is="Component" />
+							</transition>
+						</keep-alive>
+				</router-view>
 			</div>
 		</main>
 	</div>

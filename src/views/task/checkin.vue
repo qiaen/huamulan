@@ -6,7 +6,8 @@
             </template>
         </sline>
         <div class="pt20">
-            <el-button type="success" @click="back" size="small">提 交</el-button>
+            <el-button  v-permission="17" type="success" @click="back" size="small">提 交</el-button>
+            <p class="fc999 fsize14 pt20">如果登录的是管理员，才可以看到上方的按钮</p>
         </div>
     </section>
 </template>

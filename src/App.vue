@@ -4,8 +4,8 @@
 	</div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
-import {useStore} from 'vuex'
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 export default defineComponent({
 	name: 'App',
 	setup() {

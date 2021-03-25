@@ -8,10 +8,10 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 // axios请求相关前置，拦截，超时等预处理 
 import './configs/axios'
-// 全局公用组件 
-// import './components/'
-import drawer from './components/drawer.vue'
-import sline from './components/index'
+// 自定义组件
+import components from './components/'
+// 自定义指令
+import directives from './directives/'
 const app = createApp(App)
-app.use(ElementPlus).use(store).use(router).use(drawer).use(sline)
+app.use(ElementPlus).use(store).use(router).use(components).use(directives)
 app.mount('#app')

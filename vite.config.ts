@@ -1,15 +1,14 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-const base = {
+const base: any = {
 	isProd: process.env.NODE_ENV === 'production',
-	// ！！重要！！发布后的项目地址
+	/** 打包自动添加文件前缀路径 */
 	href: '',
-	// 项目页面title
+	/** 项目页面title */
 	name: '花木兰 - 后台管理系统',
-	// 目标接口域名
-	target: 'http://lanling.diumx.com',
-	// target: 'http://localhost:8021',
+	/** 目标接口域名 */
+	target: 'http://lanling.diumx.com'
 }
 // https://vitejs.dev/config/
 export default defineConfig({

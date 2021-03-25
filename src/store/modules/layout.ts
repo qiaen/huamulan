@@ -4,9 +4,6 @@ const state = {
     menus: [],
     /**是否折叠，true：收起，false：展开 */
     isCollapse: false,
-    userInfo: {
-        personName: '兰兰  '
-    },
     // 当前选中的tab
 	currentTab: { path: '', label: '' },
     /*

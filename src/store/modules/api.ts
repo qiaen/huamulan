@@ -9,7 +9,6 @@ const state = {
 }
 const actions = {
 	GetUserInfo({ commit, state }) {
-        console.log(111)
 		if (!state.id) {
 			return Base.getUserInfo({ appCode: Code.APPCODE }).then((res) => {
 				if (res.code == 200) {

@@ -13,12 +13,12 @@
 		<!-- 头像，退出登录 -->
 		<div class="flex avatar">
 			<div class="middle">
-				{{userInfo.personName||''}}
+				{{userInfo.name||''}}
 			</div>
 			<el-dropdown class="fxmiddle">
 				<span class="el-dropdown-link">
 					<a class="middle acc-avatar pointer height100">
-						<img src="/img/dt-s12.png" alt="">
+						<img :src="userInfo.avatar" alt="">
 					</a>
 				</span>
                 <template #dropdown>
@@ -36,12 +36,14 @@
 <script>
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from "vue-router"
 export default {
 	name: 'roof',
 	setup() {
 		let store = useStore()
+		let router = useRouter()
         function logout() {
-
+			router.push('/login')
         }
         function collapse() {
 			store.dispatch('layout/SetMenuCollapse')

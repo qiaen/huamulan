@@ -2,10 +2,10 @@
 	<menu class="menu shrink0 fcfff hideit scroll-y">
 		<div class="width100 menu-logo">
 			<a :style="{width: isCollapse ? '42px' : ''}" class="fxmiddle flex hideit height100">
-				<img src="http://lanling.diumx.com/img/lan-2.af005ed3.png" alt="">
+				<img src="/img/dt-7.png" alt="">
 				<div class="fcfff pl5">
 					<p class="fbold fsize14">花木兰</p>
-					<p class="fsize11">后台管理系统模版</p>
+					<p class="fsize11">后台管理系统模版Vue3+TS</p>
 				</div>
 			</a>
 		</div>

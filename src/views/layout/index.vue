@@ -10,23 +10,25 @@
 			<!-- 主内容 -->
 			<div class="bgmain relative hideit flex-view">
 				<tabs></tabs>
-				<!-- <transition :name="$route.meta.fast ? '' : 'fade-transform'"> -->
-				<!-- <transition name="fade-transform" @before-leave="setTransition(true)" @after-enter="setTransition(false)"> -->
-				<transition name="fade-transform">
 					<!-- 页面缓存，注意事项看下方 cachedViews-->
-					<keep-alive :include="cachedViews">
-						<router-view class="bgfff main-content absolute flex-view"></router-view>
-					</keep-alive>
-				</transition>
+					<router-view class="bgfff main-content absolute flex-view" v-slot="{ Component }">
+							<keep-alive :include="cachedViews">
+								<transition name="fade-transform" appear>
+									<component :is="Component" />
+								</transition>
+							</keep-alive>
+					</router-view>
+					
 			</div>
 		</main>
 	</div>
 </template>
 <script>
-import { ref } from 'vue'
+import { computed } from 'vue'
 import menus from './menu.vue'
 import roof from './roof.vue'
 import tabs from './tabs.vue'
+import { useStore } from 'vuex'
 export default {
     components: {
         menus,
@@ -35,8 +37,8 @@ export default {
     },
 	name: 'layout',
 	setup() {
-        let cont = ref(1)
-        return {cont, cachedViews:[]}
+        let store = useStore()
+        return { cachedViews: computed(()=> store.getters.cachedViews) }
     }
 }
 </script>

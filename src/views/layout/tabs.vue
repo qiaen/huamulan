@@ -26,7 +26,7 @@
     </div>
     <!-- 关闭所有 -->
     <div class="shrink0 close-btn">
-      <el-dropdown>
+      <el-dropdown style="line-height: '';">
         <span class="el-dropdown-link center pointer fcgreen">
           <i class="iconfont icon-zidongqingli"></i>
         </span>
@@ -70,39 +70,26 @@ export default {
         .then(() => {
           // 删除tab成功后，如果删除的是当前查看的，就回到首页
           if (path === route.path) {
-            // 回到已打开tab的最后一个
-            let len = menuTabs.length;
+            /** menuTabs的数量，有就回到最后一个，否则回到主页 */
+            let len = menuTabs.value.length;
             if (len) {
-              selectTab({ name: menuTabs[len - 1].path });
+              selectTab({ paneName: menuTabs.value[len - 1].path });
             } else {
-              selectTab({ name: "/" });
+              selectTab({ paneName: "/" });
             }
           }
         })
-        .catch(() => {});
     }
-    /**根据类型关闭tab */
+    /** 根据类型关闭tab */
     function closeTabs(type: any) {
       store.dispatch("layout/CloseTabs", type).then(() => {
         // 删除tab成功后，如果删除的是当前查看的，就回到首页
         if (type === "all") {
-          selectTab({ name: "/" });
+          selectTab({ paneName: "/" });
         }
       });
     }
     let currentTab = computed(() => store.getters.currentTab.path);
-    function setCurrentTab() {
-      store.dispatch("layout/SetCurrentTab", {
-        label: route.name,
-        path: route.path,
-        icon: route.meta.icon,
-      });
-    }
-    /** 虽然现在通过afterEach在router/index.ts更好的解决了，但是不知道为什么这里无法生效，备注：onBeforeRouteUpdate生效 */
-    // onBeforeRouteLeave((leaveGuard: NavigationGuard)=>{
-    // 	console.log(leaveGuard)
-    // })
-    // onBeforeRouteUpdate((updateGuard: NavigationGuard) => { });
     return {
       selectTab,
       currentTab,

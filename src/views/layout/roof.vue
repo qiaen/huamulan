@@ -15,7 +15,7 @@
 			<div class="middle">
 				{{userInfo.name||''}}
 			</div>
-			<el-dropdown class="fxmiddle">
+			<el-dropdown class="fxmiddle" @command="logout">
 				<span class="el-dropdown-link">
 					<a class="middle acc-avatar pointer height100">
 						<img :src="userInfo.avatar" alt="">
@@ -23,7 +23,7 @@
 				</span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item icon="el-icon-switch-button">
+                        <el-dropdown-item  command="a" icon="el-icon-switch-button">
                             <span @click="logout">退出登录</span>
                         </el-dropdown-item>
                     </el-dropdown-menu>
@@ -33,17 +33,24 @@
 		</div>
 	</div>
 </template>
-<script>
+<script lang="ts">
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from "vue-router"
+import Storage from '@units/Storage'
 export default {
 	name: 'roof',
 	setup() {
 		let store = useStore()
 		let router = useRouter()
-        function logout() {
-			router.push('/login')
+        function logout(val: string) {
+			if (val === 'a') {
+				store.dispatch('layout/CloseTabs', 'all')
+				router.push('/login')
+				store.dispatch('layout/SetMenus', [])
+				Storage.clear('token');
+				(window as any).needAuth = true
+			}
         }
         function collapse() {
 			store.dispatch('layout/SetMenuCollapse')

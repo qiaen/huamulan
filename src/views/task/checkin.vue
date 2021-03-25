@@ -1,11 +1,30 @@
 <template>
-    <div>checkin</div>
+    <section class="checkin flex1 bgfff pad12 hideit">
+        <sline title="作业登记">
+            <template v-slot:descript="">
+                也可以在列表中点击按钮打开我，点击上方返回，或者点击确定
+            </template>
+        </sline>
+        <div class="pt20">
+            <el-button type="success" @click="back" size="small">提 交</el-button>
+        </div>
+    </section>
 </template>
 <script lang="ts">
+import { ElMessage } from 'element-plus'
 export default {
 	name: '/checkin',
-	setup() {
-        // console.log(123)
+    props: ['cite'],
+	setup(props: any, ctx) {
+        function back(){
+            if(!props.cite) {
+                return ElMessage.warning('请切换到作业列表，然后“打开盒子”')
+            }
+            ctx.emit('back', true)
+        }
+        return {
+            back
+        }
 	}
 }
 </script>

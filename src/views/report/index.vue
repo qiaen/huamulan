@@ -1,5 +1,5 @@
 <template>
-    <div>daily</div>
+    <div>report</div>
 </template>
 <script>
 export default {

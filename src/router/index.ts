@@ -36,6 +36,14 @@ router.beforeEach(async (to, from) => {
             (window as any).permission = res.data.permission;
           }
         }).catch(() => {})
+        // 需要登录
+        if ((window as any).needAuth) {
+          return {
+            path: '/login'
+          }
+        } else {
+          /** 在这里可以继续异步做登录后的事情，比如获取全局枚举等 */
+        }
         /**  递归路由 */
         let temp = depthRoute(menus, [])
         routes[0].children = [...temp, ...routes[0].children]

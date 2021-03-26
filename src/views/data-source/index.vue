@@ -11,18 +11,18 @@
 				</template>
 			</el-table-column>
 			<el-table-column prop="name" label="用户名" min-width="120" sortable show-overflow-tooltip></el-table-column>
-			<!-- <el-table-column prop="status" label="状态" width="90">
+			<el-table-column prop="status" label="状态" width="90">
 				<template #default="scope">
 					<span class="tag-status-circle" :class="'tag-status-'+ scope.row.status"></span>{{matchEnum('USER_STATUS', scope.row.status)}}
 				</template>
-			</el-table-column> -->
+			</el-table-column>
 			<el-table-column prop="phoneNumber" label="手机号" width="140" align="" show-overflow-tooltip></el-table-column>
 			<el-table-column prop="email" label="邮箱地址" min-width="160" sortable></el-table-column>
-			<!-- <el-table-column prop="position" label="身份信息" min-width="120" sortable>
+			<el-table-column prop="position" label="身份信息" min-width="120" sortable>
 				<template #default="scope">
 					{{matchEnum('USER_POSITION', scope.row.position)}}
 				</template>
-			</el-table-column> -->
+			</el-table-column>
 			<el-table-column prop="createTime" label="创建时间" min-width="160" sortable></el-table-column>
 			<el-table-column fixed="right" label="操作" width="125">
 				<template #default="scope">
@@ -31,67 +31,36 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		<el-pagination class="pt15 txright" @size-change="sizeChange" @current-change="pageChange" :current-page="pageInfo.pageNo" :page-sizes="pageInfo.sizes" :page-size="pageInfo.pageSize" :layout="pageInfo.layout" :total="pageInfo.total">
+		<el-pagination class="pt10 txright" @size-change="sizeChange" @current-change="pageChange" :current-page="pageInfo.pageNo" :page-sizes="pageInfo.sizes" :page-size="pageInfo.pageSize" :layout="pageInfo.layout" :total="pageInfo.total">
 		</el-pagination>
 	</section>
 </template>
 <script lang="ts">
-import { onMounted, reactive, ref } from 'vue'
-import * as Users from '@api/Users'
+import { onMounted } from 'vue'
+import * as Users from '../../api/Users'
+import Mixins from '../../units/Mixins'
 export default {
 	name: '/datasource',
 	setup() {
-        let mainTable = ref([])
-        // 表单分页信息
-        let pageInfo = reactive( {
-            // 当前查看的页码
-            pageNo: 1,
-            // 表总数量
-            total: 0,
-            // 每页数量，默认20
-            pageSize: 20,
-            // 分页组件支持的功能
-            layout: 'total, sizes, prev, pager, next, jumper',
-            // 可选择的分页数下拉选项
-            sizes: [20, 50, 100, 200]
-        })
-        function sizeChange() {
-
-        }
-        function pageChange() {
-            
-        }
-        function setCurrtRow() {
-
-        }
-        let xoading = ref(false)
+        const Mx: any = Mixins(get)
         function get(){
-            xoading.value = true
+            Mx.xoading.value = true
             Users.getList({
                 pageNo: 1,
                 keyword: ''
             }).then((res: any) => {
-                xoading.value = false
+                Mx.xoading.value = false
                 if(res.code === 200) {
-                    mainTable.value = res.data
-                    pageInfo.total = 2
+                    Mx.mainTable.value = res.data
+                    Mx.pageInfo.total = res.total
                 }
             })
         }
-        function init() {
-            pageInfo.pageNo = 1
-            get()
-        }
         onMounted(() => {
-            init()
+            Mx.init()
         })
         return {
-            mainTable,
-            pageInfo,
-            sizeChange,
-            pageChange,
-            setCurrtRow,
-            xoading
+            ...Mx
         }
 	}
 }

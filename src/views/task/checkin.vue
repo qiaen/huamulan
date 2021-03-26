@@ -12,9 +12,10 @@
     </section>
 </template>
 <script lang="ts">
+import { onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 export default {
-	name: '/checkin',
+	name: '/task/checkin',
     props: ['cite'],
 	setup(props: any, ctx) {
         function back(){
@@ -23,6 +24,9 @@ export default {
             }
             ctx.emit('back', true)
         }
+        onMounted(() => {
+			
+		})
         return {
             back
         }

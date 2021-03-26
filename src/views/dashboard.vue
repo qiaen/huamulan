@@ -1,13 +1,19 @@
 <template>
-    <div>
-        dashboard.vue
-    </div>
+    <section class="dashboard bgfff center">
+		<img class="nothing" src="/img/nothing.png" alt="">
+	</section>
 </template>
 <script lang="ts">
 export default {
 	name: '/',
 	setup() {
-        // console.log(123)
 	}
 }
 </script>
+<style lang="less">
+.dashboard {
+    img {
+        width: 400px;
+    }
+}
+</style>

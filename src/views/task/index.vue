@@ -14,11 +14,12 @@
     </section>
 </template>
 <script lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, defineAsyncComponent } from 'vue'
 import { ElNotification, ElMessage } from 'element-plus'
-import checkin from './checkin.vue'
+// import checkin from './checkin.vue'
+const checkin = defineAsyncComponent(() => import('./checkin.vue'))
 export default {
-    components:{checkin},
+    components: { checkin },
 	name: '/task',
 	setup() {
         let dialog = ref(false)
@@ -38,7 +39,6 @@ export default {
             dialog,
             backEditTask
         }
-        // console.log(123)
 	}
 }
 </script>

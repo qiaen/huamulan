@@ -59,7 +59,7 @@ export default {
 	}
 }
 .drawer-content {
-	padding: 15px;
+	padding: 10px 15px;
 }
 .drawer-content>div,
 .drawer-content>section {
@@ -81,8 +81,8 @@ export default {
 	bottom: -15px;
 	z-index: 99;
 	header {
-		height: 46px;
-		min-height: 46px;
+		height: 40px;
+		min-height: 40px;
 		margin: 0 15px;
 	}
 }

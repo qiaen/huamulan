@@ -1,15 +1,17 @@
 // https://next.router.vuejs.org/zh/api/#addroute-2
 import { createRouter, createWebHashHistory } from "vue-router";
 // 免登陆可进入的页面(白名单)
-const whiteList = ['/login', '/403', '/404']
+const whiteList = ["/login", "/403", "/404"];
+import { ElLoading, ElMessage } from "element-plus";
 /** 全局加载 */
-// const loadingFun = (text = '初始化数据加载中...') => {
-// 	return ELEMENT.Loading.service({
-// 		lock: true,
-// 		text
-// 	})
-// }
-let loading = false
+const loadingFun = (text = "初始化数据加载中...") => {
+  return (ElLoading as any).service({
+    lock: true,
+    fullscreen: true,
+    text,
+  });
+};
+let loading = false;
 /** 静态菜单列表 */
 import routes from "./routes";
 /** 导入Vuex实例 */
@@ -23,60 +25,86 @@ const router = createRouter({
 });
 router.beforeEach(async (to, from) => {
   // 不在白名单
-    if (!whiteList.includes(to.path)) {
-      /** 需要授权登录 */
-      if ((window as any).needAuth) {
-        console.log('verify the login information at initialization')
-        let menus: any = []
-        await store.dispatch('api/GetUserInfo').then(res => {
+  if (!whiteList.includes(to.path)) {
+    /** 需要授权登录 */
+    if ((window as any).needAuth) {
+      loading = loadingFun();
+      console.log("verify the login information at initialization");
+      let menus: any = [];
+      await store
+        .dispatch("api/GetUserInfo")
+        .then((res) => {
           if (res.code == 200) {
             (window as any).needAuth = false;
             menus = res.data.menus;
             (window as any).userPosition = res.data.position;
             (window as any).permission = res.data.permission;
           }
-        }).catch(() => {})
-        // 需要登录
-        if ((window as any).needAuth) {
-          return {
-            path: '/login'
-          }
-        } else {
-          /** 在这里可以继续异步做登录后的事情，比如获取全局枚举等 */
-        }
-        /**  递归路由 */
-        let temp = depthRoute(menus, [])
-        routes[0].children = [...temp, ...routes[0].children]
-        /** 添加（重写）动态路由 */
-        await router.addRoute(routes[0]);
-        /** 生成菜单，排除不需要显示的菜单 */
-        store.dispatch(
-          "layout/SetMenus",
-          menus.filter((item: any) => !item.hideInmenu)
-        );
-        (window as any).needAuth = false;
-        loading = false
-        /** 注意：这里如果直接runturn to，会提示404，迷惑行为，待考察 */
-        return { path: to.path }
+        })
+        .catch(() => {});
+      // 需要登录
+      if ((window as any).needAuth) {
+        (loading as any).close();
+        return {
+          path: "/login",
+        };
       } else {
-        // return { path: '/login' }
+        /** 用户已经登录，在这里可以继续异步做登录后的事情，比如获取全局枚举等 */
+        await store
+          .dispatch("api/GetAllEnum")
+          .then((res) => {
+            if (res.code !== 200) {
+              ElMessage({
+                type: "error",
+                duration: 0,
+                showClose: true,
+                message: `获取全局枚举信息失败！`,
+              });
+            }
+          })
+          .catch((err) => {
+            ElMessage({
+              type: "error",
+              duration: 0,
+              showClose: true,
+              message: `获取全局枚举信息失败！`,
+            });
+          });
       }
+      (loading as any).close();
+      /**  递归路由 */
+      let temp = depthRoute(menus, []);
+      routes[0].children = [...temp, ...routes[0].children];
+      /** 添加（重写）动态路由 */
+      await router.addRoute(routes[0]);
+      /** 生成菜单，排除不需要显示的菜单 */
+      store.dispatch(
+        "layout/SetMenus",
+        menus.filter((item: any) => !item.hideInmenu)
+      );
+      (window as any).needAuth = false;
+      loading = false;
+      /** 注意：这里如果直接runturn to，会提示404，迷惑行为，待考察 */
+      return { path: to.path };
+    } else {
+      // return { path: '/login' }
     }
+  }
 });
 /** 例如页面分析 */
 router.afterEach((to: any) => {
   store.dispatch("layout/SetCurrentTab", {
     label: to.name,
     path: to.path,
-    icon: to.meta.icon
+    icon: to.meta.icon,
   });
-  (document as any).title = to.name?`${to.name} - 花木兰` : to.name
-})
+  (document as any).title = to.name ? `${to.name} - 花木兰` : to.name;
+});
 /**  递归方法，写入路由信息 */
 function depthRoute(menus: array, routers: array) {
   menus.forEach((menu: any) => {
     if (menu.child && menu.child.length) {
-      depthRoute(menu.child, routers)
+      depthRoute(menu.child, routers);
     } else {
       routers.push({
         path: menu.path.substring(1),
@@ -85,11 +113,11 @@ function depthRoute(menus: array, routers: array) {
         meta: {
           ...(menu.meta || {}),
           title: menu.name,
-          icon: menu.icon
-        }
-      })
+          icon: menu.icon,
+        },
+      });
     }
-  })
-  return routers
+  });
+  return routers;
 }
 export default router;

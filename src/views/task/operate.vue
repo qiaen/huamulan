@@ -7,7 +7,6 @@
 export default {
 	name: '/operate',
 	setup() {
-        // console.log(123)
 	}
 }
 </script>

@@ -8,7 +8,8 @@ const base: any = {
 	/** 项目页面title */
 	name: '花木兰 - 后台管理系统',
 	/** 目标接口域名 */
-	target: 'http://lanling.diumx.com'
+	// target: 'http://huamulan.diumx.com'
+	target: 'http://127.0.0.1:8030'
 }
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -32,15 +33,15 @@ export default defineConfig({
 			}
 		}
 	},
-  alias: {
-    "/@/": resolve("./src"),
-    "@assets": resolve("./src/assets/"),
-    "@img": resolve("./src/assets/img/"),
-    "@views": resolve("./src/views"),
-    "@components": resolve("./src/components/"),
-    "@api": resolve("./src/api/"),
-    "@configs": resolve("./src/configs/"),
-    "@units": resolve("./src/units/"),
-  },
-  plugins: [vue()],
+	alias: {
+		"/@/": resolve("./src"),
+		"@assets": resolve("./src/assets/"),
+		"@img": resolve("./src/assets/img/"),
+		"@views": resolve("./src/views"),
+		"@components": resolve("./src/components/"),
+		"@api": resolve(__dirname, "./src/api/"),
+		"@configs": resolve("./src/configs/"),
+		"@units": resolve("./src/units/"),
+	},
+	plugins: [vue()],
 })

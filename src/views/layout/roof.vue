@@ -16,10 +16,8 @@
 				{{userInfo.name||''}}
 			</div>
 			<el-dropdown class="fxmiddle" @command="logout">
-				<span class="el-dropdown-link">
-					<a class="middle acc-avatar pointer height100">
-						<img :src="userInfo.avatar" alt="">
-					</a>
+				<span class="el-dropdown-link middle acc-avatar pointer">
+					<img :src="userInfo.avatar" alt="">
 				</span>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -28,7 +26,6 @@
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
-				
 			</el-dropdown>
 		</div>
 	</div>

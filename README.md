@@ -1,10 +1,10 @@
-<h1><img height="52" src="https://github.com/qiaen/lan-ling/blob/master/src/assets/img/lan-2.png?raw=true"> 花木兰 - 后台管理系统模版</h1>
+<h1><img height="52" src="https://github.com/qiaen/huamulan/blob/master/src/assets/img/lan-2.png?raw=true"> 花木兰 - 后台管理系统模版</h1>
 
 > 是一个基于Vue3+TS+Vite的前端系统管理框架，集成状态管理，动态路由，自主登录，权限控制等功能
 
-在线预览[http://lanling.diumx.com](http://lanling.diumx.com "http://lanling.diumx.com")
+在线预览[http://mulan.diumx.com](http://mulan.diumx.com "http://lanling.diumx.com")
 
-git仓库[https://github.com/qiaen/lan-ling](https://github.com/qiaen/lan-ling "https://github.com/qiaen/lan-ling")
+git仓库[https://github.com/qiaen/huamulan](https://github.com/qiaen/huamulan "https://github.com/qiaen/huamulan")
 ## Build Setup
 
 ``` bash

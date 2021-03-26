@@ -1,7 +1,7 @@
 // 用来全局调用和缓存接口信息
-import * as Base from '@api/Base'
-import * as Code from '@configs/code'
-import Storage from '@units/Storage'
+import * as Base from '../../api/Base'
+import * as Code from '../../configs/code'
+import Storage from '../../units/Storage'
 const state = {
 	userInfo: {},
 	userMenu: [],
@@ -22,7 +22,7 @@ const actions = {
 			})
 		}
 	},
-	getAllEnum({ commit, state }) {
+	GetAllEnum({ commit, state }) {
 		// 如果在本地找到枚举信息，直接先返回成功，但仍然会请求最新的枚举
 		let se = Storage.get('serviceEnum')
 		if (se) {
@@ -40,7 +40,7 @@ const actions = {
 				Storage.set('serviceEnum', res.data)
 			}
 			return Promise.resolve(res)
-		}).catch(err => {
+		}).catch((err: any) => {
 			return Promise.reject(err)
 		})
 	}

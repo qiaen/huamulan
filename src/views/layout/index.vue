@@ -4,7 +4,6 @@
 		<menus class="menu shrink0"></menus>
 		<!-- 右侧主内容区域 -->
 		<main class="main flex-view hideit">
-			<!-- {{cachedViews}} -->
 			<!-- 头部 -->
 			<!-- 顶部功能区 -->
 			<roof class="shrink0 layout-roof"></roof>
@@ -13,17 +12,17 @@
 				<tabs></tabs>
 				<!-- 页面缓存，注意事项看下方 cachedViews-->
 				<router-view class="bgfff main-content absolute flex-view" v-slot="{ Component }">
+					<transition name="fade-transform" appear>
 						<keep-alive :include="cachedViews">
-							<transition name="fade-transform" appear>
-								<component :is="Component" />
-							</transition>
+							<component :is="Component" />
 						</keep-alive>
+					</transition>
 				</router-view>
 			</div>
 		</main>
 	</div>
 </template>
-<script>
+<script lang="ts">
 import { computed } from 'vue'
 import menus from './menu.vue'
 import roof from './roof.vue'
@@ -38,7 +37,10 @@ export default {
 	name: 'layout',
 	setup() {
         let store = useStore()
-        return { cachedViews: computed(()=> store.getters.cachedViews) }
+        return { 
+			/** 注意：如果想要缓存奇效，只需要修改对应页面的name与path不同即可 */
+			cachedViews: computed(()=> store.getters.cachedViews)
+		}
     }
 }
 </script>

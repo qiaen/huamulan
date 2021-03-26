@@ -51,7 +51,7 @@
 					<li class="pt20 relative flex">
 						<label></label><input v-model="form.code" class="input fcfff flex1 fsize16" maxlength="4" placeholder="验证码" type="text">
 						<span class="cfm-span absolute"></span>
-						<button @click="sendcode" :style="{background:passmail?'#f90':'#999'}" class="absolute btn-send button pointer">{{cutdown <=0 ?'获取验证码':(cutdown+'秒后重发')}}</button>
+						<button @click="sendcode" :style="{background:passmail?'#f90':'#999'}" class="absolute btn-send button pointer">{{cutdown <= 0 ? '获取验证码' : (cutdown+'秒后重发') }}</button>
 					</li>
 					<li class="pt20 relative flex">
 						<label></label><input v-model="form.password" class="input fcfff flex1 fsize16" maxlength="12" placeholder="新密码，最少6位" type="password">

@@ -1,5 +1,6 @@
 import { ref, reactive, computed } from 'vue'
 import store from '../store/index'
+/** 混入常用变量和方法，如分页相关方法，加载中，主表等 */
 export default function setup(get: Function|void): object {
     /** 主表格数据，用来存放list数据 */
     let mainTable = ref([])

@@ -41,8 +41,8 @@ router.beforeEach(async (to, from) => {
             (window as any).permission = res.data.permission;
           }
         })
-        .catch(() => {});
-      // 需要登录
+        .catch(() => { });
+      // 需要登录，即获取用户信息时失败
       if ((window as any).needAuth) {
         (loading as any).close();
         return {

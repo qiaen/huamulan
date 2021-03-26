@@ -44,22 +44,19 @@ export default defineComponent({
 		font-size: 12px;
 		color: #666;
 	}
-	/*p {
-		height: 1px;
-		background: #dbe2ea;
-	}*/
-}
-.form-line-big {
-	span {
-		height: 20px;
-		width: 4px;
-	}
-	label {
-		padding: 0 8px;
-		font-size: 18px;
-	}
-	.descript {
-		font-size: 16px;
+	// 大尺寸
+	&-big{
+		span {
+			height: 20px;
+			width: 4px;
+		}
+		label {
+			padding: 0 8px;
+			font-size: 18px;
+		}
+		.descript {
+			font-size: 16px;
+		}
 	}
 }
 

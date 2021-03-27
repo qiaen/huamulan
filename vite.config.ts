@@ -8,7 +8,7 @@ const base: any = {
 	/** 项目页面title */
 	name: '花木兰 - 后台管理系统',
 	/** 目标接口域名 */
-	target: 'http://lanling.diumx.com'
+	target: 'http://mulan.diumx.com'
 	// target: 'http://127.0.0.1:8030'
 }
 // https://vitejs.dev/config/

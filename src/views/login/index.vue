@@ -80,7 +80,7 @@ import { ElMessage, ElNotification } from 'element-plus'
 import { useRouter } from "vue-router"
 import * as Account from '@api/Account'
 import Storage from '@units/Storage'
-import {useStore} from 'vuex'
+import { useStore } from 'vuex'
 export default{
 	name:'/login',
 	setup(){

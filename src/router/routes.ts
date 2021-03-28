@@ -1,5 +1,10 @@
 // 注意，name要和组件内的name一致，用于路由缓存识别！！！
 // disCache：true配置后，禁用页面缓存
+const loginComponentPath = "/login/index"
+async function setView(pathname: string) {
+  const file = await import(`../views${pathname}.vue`)
+  return file
+}
 export default [
   {
     path: "/",
@@ -34,7 +39,11 @@ export default [
   {
     path: "/login",
     name: "登录",
-    component: () => import("@views/login/index.vue"),
+    // 常规导入，完美，但是通过传入的path name就不行，
+    // 因为项目中存在根据服务器给的path name来渲染页面的情况，特别是在做权限动态路由的时候
+    component: () => import(`@views/login/index.vue`),
+    // TypeError: Failed to resolve module specifier '@views/login/index.vue?import' at component (routes.ts:38)
+    // component: () => setView(loginComponentPath),
     meta: {
       icon: "el-icon-s-platform",
       title: "login",

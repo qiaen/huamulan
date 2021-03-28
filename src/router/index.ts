@@ -11,6 +11,10 @@ const loadingFun = (text = "初始化数据加载中...") => {
     text,
   });
 };
+async function setView(pathname: string) {
+  const file = await import(`../views${pathname}.vue`)
+  return file
+}
 let loading = false;
 /** 静态菜单列表 */
 import routes from "./routes";
@@ -109,7 +113,7 @@ function depthRoute(menus: array, routers: array) {
       routers.push({
         path: menu.path.substring(1),
         name: menu.name,
-        component: () => import(`../views${menu.file}`),
+        component: () => setView(menu.file),
         meta: {
           ...(menu.meta || {}),
           title: menu.name,

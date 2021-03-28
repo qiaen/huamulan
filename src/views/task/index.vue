@@ -6,17 +6,16 @@
         </div>
         <!-- 作业查看，编辑，新增 -->
 		<drawer v-model="dialog" @back="backEditTask" title="测试抽屉组件">
-            <template v-slot:left="">
+            <template #left>
                 <checkin cite="true" @back="backEditTask"></checkin>
             </template>
-			
 		</drawer>
     </section>
 </template>
 <script lang="ts">
 import { reactive, ref, defineAsyncComponent } from 'vue'
 import { ElNotification, ElMessage } from 'element-plus'
-// import checkin from './checkin.vue'
+/** 动态异步导入抽屉的内容 */
 const checkin = defineAsyncComponent(() => import('./checkin.vue'))
 export default {
     components: { checkin },

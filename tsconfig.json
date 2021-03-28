@@ -1,4 +1,5 @@
 {
+  "baseUrl": "/",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -9,9 +10,7 @@
     "lib": ["esnext", "dom"],
     "types": ["vite/client"],
     "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }],
-    "paths": {
-      "*.ts": ["*"]
-    },
+    "paths": {},
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

@@ -12,7 +12,7 @@
 			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" @click="init" :loading="xoading" icon="el-icon-search">查询</el-button>
-				<el-button @click="showSelected" v-permission="17" type="success"> <i class="iconfont icon-xiezi fsize12 pr5"></i>管理员可见</el-button>
+				<el-button :disabled="!mainSelected.length" @click="showSelected" v-permission="17" type="success"> <i class="iconfont icon-xiezi fsize12 pr5"></i>管理员可见</el-button>
 			</el-form-item>
 		</el-form>
         <el-table v-loading="xoading" @selection-change="mainSelectionChange" class="zm-table" height="100%" :data="mainTable" border>

@@ -11,18 +11,16 @@ const loadingFun = (text = "初始化数据加载中...") => {
     text,
   });
 };
-async function setView(pathname: string) {
-  const file = await import(`../views${pathname}.vue`)
-  return file
-}
 let loading = false;
 /** 静态菜单列表 */
 import routes from "./routes";
 /** 导入Vuex实例 */
 import store from "../store/index";
+/** https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars */
+/** 这里限制性很高，只有路径为/views/文件夹name/*.vue，的文件才能被识别，如果不在这个结构，自己增加吧，然后再合并 */
+const modules = import.meta.glob('../views/*/*.vue');
 /** 数否需要获取授权 */
 (window as any).needAuth = true;
-
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
@@ -113,7 +111,8 @@ function depthRoute(menus: array, routers: array) {
       routers.push({
         path: menu.path.substring(1),
         name: menu.name,
-        component: () => setView(menu.file),
+        // component: () => import(`../views${menu.file}`),
+        component: modules[`../views${menu.file}`],
         meta: {
           ...(menu.meta || {}),
           title: menu.name,

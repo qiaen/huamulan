@@ -1,3 +1,4 @@
+<!-- 带折叠展开筛选项组件 -->
 <template>
 	<el-form :inline="true" size="small" class="zm-filter" :class="'zm-filter-' + size">
 		<!-- 直接显示出来的部分 -->
@@ -17,7 +18,7 @@
 <script lang="ts">
 import { ref, computed } from 'vue'
 export default {
-    name: 'filters',
+	name: 'filters',
 	// small 用户显示为小按钮，其他需求待开发，一行显示不下的时候可以用下试试
 	props: {
 		size: {
@@ -25,12 +26,12 @@ export default {
 		}
 	},
 	setup(props, ctx: any) {
-        /** 是否展示所有的搜索项 */
-        let showall = ref(false)
-        /** 如果没有需要自动展开的，则不显示展开收起按钮 */
-        console.log(ctx.slots.auto)
-        let btn = computed(() => {
-            let show = ctx.slots.auto
+		/** 是否展示所有的搜索项 */
+		let showall = ref(false)
+		/** 如果没有需要自动展开的，则不显示展开收起按钮 */
+		console.log(ctx.slots.auto)
+		let btn = computed(() => {
+			let show = ctx.slots.auto
 			if (showall.value) {
 				return {
 					icon: 'up',
@@ -44,15 +45,14 @@ export default {
 					show
 				}
 			}
-        })
+		})
 		return {
 			showall,
-            computed,
-            btn
+			computed,
+			btn
 		}
 	}
 }
-
 </script>
 <style lang="less">
 .zm-filter {
@@ -71,5 +71,4 @@ export default {
 	}
 
 }
-
 </style>

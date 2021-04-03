@@ -2,6 +2,8 @@ import Storage from '@units/Storage'
 // 超时60秒
 axios.defaults.timeout = 1000 * 60
 axios.defaults.withCredentials = true
+// 增加baseURL是为了省略在每个接口地址上添加/api
+axios.defaults.baseURL = '/api'
 axios.interceptors.request.use(
 	config => {
 		// 统一为请求接口增加token信息

@@ -1,3 +1,4 @@
+<!-- title显示组件 -->
 <template>
 	<div class="form-line fxmiddle flex" :class="{'form-line-big': size == 'big'}">
 		<span></span>
@@ -22,8 +23,7 @@ export default defineComponent({
 			default: 'big'
 		}
 	}
-}) 
-
+})
 </script>
 <style lang="less">
 .form-line {
@@ -45,7 +45,7 @@ export default defineComponent({
 		color: #666;
 	}
 	// 大尺寸
-	&-big{
+	&-big {
 		span {
 			height: 20px;
 			width: 4px;
@@ -59,5 +59,4 @@ export default defineComponent({
 		}
 	}
 }
-
 </style>

@@ -1,3 +1,4 @@
+<!-- 右侧划出，抽屉组件 -->
 <template>
 	<transition name="slide-right">
 		<div v-if="modelValue" class="drawer-bg flex absolute">
@@ -33,15 +34,15 @@
 </template>
 <script lang="ts">
 export default {
-    name: 'drawer',
+	name: 'drawer',
 	props: ['title', 'modelValue'],
 	setup(props, ctx) {
-        function back() {
-            ctx.emit('back', false)
-        }
+		function back() {
+			ctx.emit('back', false)
+		}
 		return {
-           back
-        }
+			back
+		}
 	}
 }
 </script>

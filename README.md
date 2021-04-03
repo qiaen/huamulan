@@ -1,4 +1,4 @@
-<h1><img height="52" src="https://github.com/qiaen/huamulan/blob/master/src/assets/img/lan-2.png?raw=true"> 花木兰 - 后台管理系统模版</h1>
+<h1><img height="52" src="https://assets.gitlab-static.net/uploads/-/system/project/avatar/25550254/dt-7.png?width=200"> 花木兰 - 后台管理系统模版</h1>
 
 > 是一个基于Vue3+TS+Vite的前端系统管理框架，集成状态管理，动态路由，自主登录，权限控制等功能
 

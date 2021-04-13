@@ -15,7 +15,7 @@
 				<el-button :disabled="!mainSelected.length" @click="showSelected" v-permission="17" type="success"> <i class="iconfont icon-xiezi fsize12 pr5"></i>管理员可见</el-button>
 			</el-form-item>
 		</el-form>
-        <el-table v-loading="xoading" @selection-change="mainSelectionChange" class="zm-table" height="100%" :data="mainTable" border>
+        <el-table v-loading="xoading" class="zm-table" @selection-change="mainSelectionChange" height="100%" :data="mainTable" border>
 			<el-table-column type="selection" width="55" align="center"></el-table-column>
 			<el-table-column prop="id" label="作业ID" width="75" align="center"></el-table-column>
 			<el-table-column prop="jobName" label="作业名称" min-width="150" sortable show-overflow-tooltip>
@@ -63,21 +63,22 @@
 		<el-pagination class="pt10 txright" @size-change="sizeChange" @current-change="pageChange" :current-page="pageInfo.pageNo" :page-sizes="pageInfo.sizes" :page-size="pageInfo.pageSize" :layout="pageInfo.layout" :total="pageInfo.total">
 		</el-pagination>
         <!-- 修改运维状态 -->
-		<change-status @changeStatus="doByType" :loading="loading" :dialog="dialog"></change-status>
+		<change-status @changeStatus="doByType" :loading="loading1" :dialog="dialog"></change-status>
     </section>
 </template>
 <script lang="ts">
 import { onMounted, reactive, ref, defineAsyncComponent } from 'vue'
-// import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
 import * as Jobs from '../../api/Jobs'
 import Mixins from '../../units/Mixins'
-import { ElMessage } from 'element-plus'
 /** 异步导入，辣眼睛 */
 const changeStatus = defineAsyncComponent(() => import('./compons/change-status.vue'))
 export default {
 	name: '/report',
     components:{ changeStatus },
     setup() {
+		/** 引入常用功能 */
+        const Mx: any = Mixins(get)
         // let store = useStore()
         let params = reactive({
             keyword: '',
@@ -86,17 +87,18 @@ export default {
         let dialog = reactive({
             changeStatus: false
         })
-        let loading = reactive({
+        let loading1 = reactive({
             changeStatus: false
         })
-        /** 引入常用功能 */
-        let Mx: any = Mixins(get)
+        
         /** 请求数据 */
         function get() {
             Mx.xoading.value = true
+			console.log(Mx.xoading.value)
             Jobs.jobList({
+				...params,
                 pageNo: Mx.pageInfo.pageNo,
-                keyword: ''
+				pageSize: Mx.pageInfo.pageSize
             }).then((res: any) => {
                 Mx.xoading.value = false
                 if(res.code === 200) {
@@ -117,13 +119,14 @@ export default {
                 console.log(dialog.changeStatus)
             }
         }
+		/** 接收状态类型 */
         function doByType(val: number) {
             if (val == 1) {
 				ElMessage.success(`你点击了启用，模拟操作，不会真的改变数据`)
 			} else {
 				ElMessage.info(`你点击了禁用，模拟操作，不会真的改变数据`)
 			}
-			dialog.changeStatus = loading.changeStatus = false
+			dialog.changeStatus = loading1.changeStatus = false
         }
         /** 显示已选择 */
         function showSelected() {
@@ -131,14 +134,15 @@ export default {
             ElMessage(`已选择 ${s.length} 个～`)
         }
         return {
+			// 为什么命名loading，会影响table的v-loading？？？？？？
+			loading1,
+			...Mx,
             params,
             doByType,
             currtRow,
             setCurrtRow,
             dialog,
-            loading,
-            showSelected,
-            ...Mx
+            showSelected
         }
     }
 }

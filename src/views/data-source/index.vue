@@ -124,12 +124,20 @@ export default {
                 ElMessage('你已返回到列表～～')
             }
         }
+		function setCurrtRow(row: any, type: string){
+			if (type === 'edit') {
+				dialog.value = true
+			} else {
+				ElMessage.success('模拟删除操作！')
+			}
+		}
 		/** 抽屉相关 结束 */
         return {
             ...Mx,
 			params,
 			dialog,
-            backEditTask
+            backEditTask,
+			setCurrtRow
         }
 	}
 }

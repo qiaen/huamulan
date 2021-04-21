@@ -5,6 +5,7 @@
   "author": "TEEMO <762366705@qq.com>",
   "private": true,
   "scripts": {
+    "start": "vite preview",
     "dev": "vite",
     "build": "vuedx-typecheck . && vite build",
     "serve": "vite preview"

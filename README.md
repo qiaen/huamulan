@@ -35,37 +35,36 @@ npm run build --report
 
 ## axios请求前置处理，请注意api接口配置是根据项目而定
 ```javascript
-// 请求状态判断
+// 超时60秒
 axios.defaults.timeout = 1000 * 60
+axios.defaults.withCredentials = true
+// 增加baseURL是为了省略在每个接口地址上添加/api
+axios.defaults.baseURL = '/api'
 axios.interceptors.request.use(
-	function(config) {
-		// 特殊接口，外部非data sync接口
-		if (config.url.indexOf('/api') === 0 || config.url.indexOf('/sso') === 0) {
-			config.baseURL = ''
+	config => {
+		// 统一为请求接口增加token信息
+		// 注意实际业务用到的method可能更复杂，这里需要增加逻辑判断
+		if (config.method === 'get') {
+			config.params = { ...(config.params || {}), token: Storage.get('token') }
 		} else {
-			// 要注意的地方
-			config.baseURL = '/api'
+			config.data = { ...(config.data || {}), token: Storage.get('token') }
 		}
-		config.withCredentials = true
 		return config
 	},
-	function(error) {
+	error => {
 		return Promise.reject(error)
 	}
 )
 ```
 ## 接口错误，已对错误状态比如未授权，请求超时添加全局处理，如果有需要的话依然可以被catch捕捉到
 ```javascript
+import { ElMessage } from "element-plus"
 // 返回状态判断
 axios.interceptors.response.use(
 	response => {
 		let res = response.data
-		if (res.code == 11) {
-			if (process.env.NODE_ENV !== 'production') {
-				window.location.href = '#/login'
-			} else {
-				window.location.href = '/'
-			}
+		if (res.code === 401) {
+			window.location.href = '#/login'
 		}
 		return response
 	},
@@ -74,9 +73,9 @@ axios.interceptors.response.use(
 		console.log(error)
 		let msg = error.message
 		if (msg.indexOf('timeout') > -1) {
-			ELEMENT.Message({ type: 'error', duration: 0, showClose: true, message: `请求超时，请稍后重试～` })
+			ElMessage({ type: 'error', duration: 0, showClose: true, message: `请求超时，请稍后重试～` })
 		} else {
-			ELEMENT.Message({ type: 'error', message: msg })
+			ElMessage({ type: 'error', message: msg })
 		}
 		return Promise.reject(error)
 	}
@@ -87,113 +86,121 @@ DataSource.getList({
 	pageNo: this.pageInfo.pageNo,
 	pageSize: this.pageInfo.pageSize
 }).then(res => {
-	this.xoading.main = false
 	if (res.code == 0) {
-		this.tableData = res.data.records
-		this.pageInfo.total = res.data.total
+		// 请求成功
 	} else {
 		this.$message.error(res.message)
 	}
 }).catch(err => {
-	this.xoading.main = false
+	// 请求失败，axios统一拦截，并且传入错误消息
 })
 ```
 ## 使用minxs混入全局data，methods，computed。常用的方法，请求加载中，主表放到data内，无需再在每个组件创建
 ```javascript
-// src/mixins.js
-// 基本接口请求
-import * as Base from '@api/Base'
-// 统一基本配置项
-import Configs from '@configs/index'
-// 状态管理
-import { mapGetters } from 'Vuex'
-export default {
-	data() {
-		return {
-			// 表单分页信息
-			pageInfo: {
-				// 当前查看的页码
-				pageNo: 1,
-				// 表总数量
-				total: 0,
-				// 每页数量，默认20
-				pageSize: Configs.pageSize,
-				// 分页组件支持的功能
-				layout: Configs.pageLayout,
-				// 可选择的分页数下拉选项
-				sizes: Configs.pageSizes
-			},
-			// 通用加载状态
-			xoading: {
-				// 页面内主内容加载中，适用于主table
-				main: false
-			},
-			// 主表被复选选中项目
-			mainSelected: []
-		}
-	},
-	computed: {
-		...mapGetters([
-			// 服务器枚举信息
-			'serviceEnum',
-			// 用户信息
-			'userInfo',
-		])
-	},
-	methods: {
-		// 初始化请求主表内容
-		init() {
-			this.pageInfo.pageNo = 1
-			this.get()
-		},
-		// 每页需要的数量变动
-		sizeChange(val) {
-			this.pageInfo.pageNo = 1
-			this.pageInfo.pageSize = val
-			this.init()
-		},
-		// 分页页码变动
-		pageChange(val) {
-			this.pageInfo.pageNo = val
-			this.get()
-		},
-		// 匹配枚举 返回label  this.matchEnum('PULL_INCRE_TYPE', 'day_all')
-		matchEnum(type, key) {
-			let enums = this.serviceEnum[type]
-			let name = ''
-			if (enums) {
-				for (let item of enums) {
-					if (item.value == key) {
-						name = item.name
-						break
-					}
-				}
-			}
-			return name
-		},
-		// 主表复选项变动
-		mainSelectionChange(rows) {
-			this.mainSelected = rows
-		}
-	}
+/** useMixins */
+import { ref, reactive, computed } from 'vue'
+import store from '../store/index'
+/** 混入常用变量和方法，如分页相关方法，加载中，主表等 */
+export default function setup(get: Function|void): object {
+    /** 主表格数据，用来存放list数据 */
+    let mainTable = ref([])
+    /** 批量选择 */
+    let mainSelected = ref([])
+    /** 主表复选项变动 */
+    function mainSelectionChange(rows: array) {
+        mainSelected.value = rows
+    }
+    // let store = useStore()
+    /** 表单分页信息, pageNo: 页码, total: 总数, pageSize: 每页数量, layout: 总数, layout: 支持功能, sizes: 可选分页*/
+    let pageInfo = reactive( {
+        // 当前查看的页码
+        pageNo: 1,
+        // 表总数量
+        total: 0,
+        // 每页数量，默认20
+        pageSize: 20,
+        // 分页组件支持的功能
+        layout: 'total, sizes, prev, pager, next, jumper',
+        // 可选择的分页数下拉选项
+        sizes: [20, 50, 100, 200]
+    })
+    /** 主 加载中 */
+    let xoading = ref(false)
+    /** 初始化数据，重置页面为1，然后调用入参数get方法 */
+    function init() {
+        pageInfo.pageNo = 1
+        get && get()
+    }
+    /** 每页数量变动，初始化到第一页开始加载 */
+    function sizeChange(val: number) {
+        pageInfo.pageNo = 1
+        pageInfo.pageSize = val
+        init()
+    }
+    /** 切换页码 */
+    function pageChange(val: number) {
+        pageInfo.pageNo = val
+        get && get()
+    }
+    /** 接口枚举 */
+    const serviceEnum: array = computed(() => store.getters.serviceEnum)
+    /** 匹配枚举 返回label  this.matchEnum('PULL_INCRE_TYPE', 'day_all') */
+    function matchEnum(type: string, key: string) {
+        let enums = serviceEnum.value[type]
+        let MN = ''
+        if (enums) {
+            for (let {name, value} of enums) {
+                if (value == key) {
+                    MN = name
+                    break
+                }
+            }
+        }
+        return MN
+    }
+    
+    return {
+        mainTable,
+        mainSelected,
+        mainSelectionChange,
+        pageInfo,
+        sizeChange,
+        pageChange,
+        init,
+        xoading,
+        serviceEnum,
+        matchEnum
+    }
 }
 // views/data-source.vue
 // 用到则引入
-import Mixins from '@/mixins'
+import useMixins from '../../units/Mixins'
 export default {
 	name: '/datasource',
-	mixins: [Mixins]
+	setup() {
+
+		const Mx: any = useMixins()
+		return {
+			...Mx
+		}
+		// 或者按需要导入方法
+		const { xoading, init } = useMixins()
+		return {
+			xoading,
+			init
+		}
+	}
 }
 ```
 ## 资源引用
 ```html
-<link rel="stylesheet" href="https://unpkg.com/element-ui@2.10.1/lib/theme-chalk/index.css">
-<script src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
-<script src="https://unpkg.com/element-ui@2.10.1/lib/index.js"></script>
-<script src="https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js"></script>
-<script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"></script>
-<script src="https://unpkg.com/vuex@3.6.2/dist/vuex.min.js"></script>
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1641218_uwp7vntqdta.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@3.0.9/dist/vue.global.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.35/lib/theme-chalk/index.css">
+<script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuex@4.0.0/dist/vuex.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-router@4.0.5/dist/vue-router.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/element-plus@1.0.2-beta.35/lib/index.full.js"></script>
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1641218_3dngr4xqlzs.css">
 ```
 样式文件通过cdn外链引入，也可以引入本地js，如果想要自定义Element UI的样式，请参考[Element自定义主题样式](https://element.eleme.cn/#/zh-CN/theme/preview "Element自定义主题样式")，然后下载资源引入即可
 ## Vue CLI 如何引入资源?

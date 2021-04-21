@@ -29,7 +29,6 @@ export default {
 		/** 是否展示所有的搜索项 */
 		let showall = ref(false)
 		/** 如果没有需要自动展开的，则不显示展开收起按钮 */
-		console.log(ctx.slots.auto)
 		let btn = computed(() => {
 			let show = ctx.slots.auto
 			if (showall.value) {
@@ -56,7 +55,7 @@ export default {
 </script>
 <style lang="less">
 .zm-filter {
-	&.zm-filter-small {
+	&-small {
 		.el-button {
 			padding-left: 12px;
 			padding-right: 12px;
@@ -69,6 +68,8 @@ export default {
 			padding-right: 6px;
 		}
 	}
-
+	.el-form-item {
+		margin-bottom: 15px;
+	}
 }
 </style>

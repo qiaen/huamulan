@@ -1,3 +1,4 @@
+import { ElMessage } from "element-plus"
 import Storage from '@units/Storage'
 // 超时60秒
 axios.defaults.timeout = 1000 * 60
@@ -33,9 +34,9 @@ axios.interceptors.response.use(
 		console.log(error)
 		let msg = error.message
 		if (msg.indexOf('timeout') > -1) {
-			ELEMENT.Message({ type: 'error', duration: 0, showClose: true, message: `请求超时，请稍后重试～` })
+			ElMessage({ type: 'error', duration: 0, showClose: true, message: `请求超时，请稍后重试～` })
 		} else {
-			ELEMENT.Message({ type: 'error', message: msg })
+			ElMessage({ type: 'error', message: msg })
 		}
 		return Promise.reject(error)
 	}

@@ -1,6 +1,6 @@
 <template>
     <section class="report">
-        <el-form :inline="true" size="small" :model="params">
+        <el-form :inline="true" size="small" :model="params" class="zm-filter">
 			<el-form-item label="作业名称">
 				<el-input v-model="params.keyword" @keyup.enter="init" placeholder="作业名称、创建人" clearable></el-input>
 			</el-form-item>

@@ -34,7 +34,7 @@
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from "vue-router"
-import Storage from '@units/Storage'
+import Storage from '@utils/Storage'
 export default {
 	name: 'roof',
 	setup() {

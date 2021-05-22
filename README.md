@@ -174,7 +174,7 @@ export default function setup(get: Function|void): object {
 }
 // views/data-source.vue
 // 用到则引入
-import useMixins from '../../units/Mixins'
+import useMixins from '../../utils/Mixins'
 export default {
 	name: '/datasource',
 	setup() {

@@ -70,7 +70,7 @@
 import { onMounted, reactive, ref, defineAsyncComponent } from 'vue'
 import { ElMessage } from 'element-plus'
 import * as Jobs from '../../api/Jobs'
-import Mixins from '../../units/Mixins'
+import Mixins from '../../utils/Mixins'
 /** 异步导入，辣眼睛 */
 const changeStatus = defineAsyncComponent(() => import('./compons/change-status.vue'))
 export default {

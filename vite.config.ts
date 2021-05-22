@@ -38,7 +38,7 @@ export default defineConfig({
 			"@components": resolve("./src/components/"),
 			"@api": resolve("./src/api/"),
 			"@configs": resolve("./src/configs/"),
-			"@units": resolve("./src/units/"),
+			"@utils": resolve("./src/utils/"),
 		}
 	},
 	plugins: [

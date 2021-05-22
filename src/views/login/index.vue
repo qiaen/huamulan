@@ -79,7 +79,7 @@ import {ref, reactive, computed} from 'vue'
 import { ElMessage, ElNotification } from 'element-plus'
 import { useRouter } from "vue-router"
 import * as Account from '@api/Account'
-import Storage from '@units/Storage'
+import Storage from '@utils/Storage'
 import { useStore } from 'vuex'
 export default{
 	name:'/login',

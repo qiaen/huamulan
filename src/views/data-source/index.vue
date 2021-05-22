@@ -78,7 +78,7 @@
 import { onMounted, reactive, ref, defineAsyncComponent  } from 'vue'
 import { ElNotification, ElMessage } from 'element-plus'
 import * as Users from '../../api/Users'
-import Mixins from '../../units/Mixins'
+import Mixins from '../../utils/Mixins'
 /** 动态异步导入抽屉的内容 */
 const checkin = defineAsyncComponent(() => import('../task/checkin.vue'))
 export default {

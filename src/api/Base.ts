@@ -1,4 +1,4 @@
-import Http from '../units/Http'
+import Http from '../utils/Http'
 
 /** 获取用户信息 */
 export const getUserInfo = (params: any) => Http.setPromise(`GET`, `/getUserInfo`, params)

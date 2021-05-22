@@ -1,5 +1,5 @@
 import { ElMessage } from "element-plus"
-import Storage from '@units/Storage'
+import Storage from '@utils/Storage'
 // 超时60秒
 axios.defaults.timeout = 1000 * 60
 axios.defaults.withCredentials = true

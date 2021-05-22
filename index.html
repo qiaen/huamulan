@@ -19,5 +19,9 @@
 	<div id="app" class="full-content hideit"></div>
 	<script type="module" src="/src/main.ts"></script>
 </body>
-
+<script>
+	if(navigator.appVersion.indexOf("Mac") === -1) {
+	  document.querySelector('#root').classList.add('qiaen-bar')
+	}
+  </script>
 </html>

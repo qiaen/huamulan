@@ -1,7 +1,7 @@
 <template>
 	<div class="layout full-content hideit flex">
 		<!-- 左侧菜单 -->
-		<menus class="menu shrink0"></menus>
+		<menus></menus>
 		<!-- 右侧主内容区域 -->
 		<main class="main flex-view hideit">
 			<!-- 头部 -->
@@ -29,12 +29,12 @@ import roof from './roof.vue'
 import tabs from './tabs.vue'
 import { useStore } from 'vuex'
 export default {
+	name: 'layout',
     components: {
         menus,
         roof,
 		tabs
     },
-	name: 'layout',
 	setup() {
         let store = useStore()
         return { 

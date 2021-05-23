@@ -1,5 +1,5 @@
 <template>
-	<menu class="menu shrink0 fcfff hideit scroll-y">
+	<menu class="menus shrink0 fcfff hideit scroll-y">
 		<div class="width100 menu-logo">
 			<a :style="{width: isCollapse ? '42px' : ''}" class="fxmiddle flex hideit height100">
 				<img src="/img/dt-7.png" alt="">
@@ -37,7 +37,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 export default {
-	name: 'menu',
+	name: 'menus',
 	setup() {
 		let store = useStore() 
 		return {
@@ -50,7 +50,7 @@ export default {
 }
 </script>
 <style lang="less">
-.menu {
+.menus {
 	background: #21325e;
 	.menu-logo {
 		height: 50px;

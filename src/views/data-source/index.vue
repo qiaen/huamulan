@@ -23,7 +23,7 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="创建时间">
-					<el-date-picker @change="init" v-model="params.date" type="datetimerange" value-format="yyyy-MM-dd HH:mm:ss" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间" style="width: 380px">
+					<el-date-picker @change="init" v-model="params.date" :format="'YYYY-MM-DD HH:mm:ss'" type="datetimerange" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间" :default-time="[new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 2, 1, 23, 59, 59)]" style="width: 380px">
 					</el-date-picker>
 				</el-form-item>
 			</template>

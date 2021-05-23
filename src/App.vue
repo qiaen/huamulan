@@ -18,13 +18,13 @@ export default defineComponent({
 </script>
 <style lang="less">
 // 默认菜单宽度
-.menu {
+.menus {
 	width: 215px;
 }
 
 // 菜单折叠后的样式和宽度
 .full-collapse {
-	.menu {
+	.menus {
 		width: 60px;
 	}
 }

@@ -36,9 +36,10 @@
 export default {
 	name: 'drawer',
 	props: ['title', 'modelValue'],
-	setup(props, ctx) {
+	emits: ['back'],
+	setup(props, {emit}) {
 		function back() {
-			ctx.emit('back', false)
+			emit('back', false)
 		}
 		return {
 			back

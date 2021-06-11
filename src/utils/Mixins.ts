@@ -7,7 +7,7 @@ export default function setup(get: Function|void): object {
     /** 批量选择 */
     let mainSelected = ref([])
     /** 主表复选项变动 */
-    function mainSelectionChange(rows: array) {
+    function mainSelectionChange(rows: any) {
         mainSelected.value = rows
     }
     // let store = useStore()
@@ -43,7 +43,7 @@ export default function setup(get: Function|void): object {
         get && get()
     }
     /** 接口枚举 */
-    const serviceEnum: array = computed(() => store.getters.serviceEnum)
+    const serviceEnum: any = computed(() => store.getters.serviceEnum)
     /** 匹配枚举 返回label  this.matchEnum('PULL_INCRE_TYPE', 'day_all') */
     function matchEnum(type: string, key: string) {
         let enums = serviceEnum.value[type]

@@ -1,7 +1,7 @@
 // 用来全局调用和缓存接口信息
-import * as Base from '../../api/Base'
-import * as Code from '../../configs/code'
-import Storage from '../../utils/Storage'
+import * as Base from '@api/Base'
+import * as Code from '@configs/code'
+import Storage from '@utils/Storage'
 const state = {
 	userInfo: {},
 	userMenu: [],

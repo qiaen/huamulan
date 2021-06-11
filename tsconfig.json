@@ -1,6 +1,6 @@
 {
-  "baseUrl": "/",
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
@@ -10,7 +10,15 @@
     "lib": ["esnext", "dom"],
     "types": ["vite/client"],
     "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }],
-    "paths": {},
+    "paths": {
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["src/assets/*"],
+      "@img/*": ["src/img/*"],
+      "@views/*": ["src/views/*"],
+      "@components/*": ["src/components/*"],
+      "@api/*": ["src/api/*"],
+      "@configs/*": ["src/configs/*"]
+    },
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

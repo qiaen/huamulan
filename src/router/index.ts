@@ -1,5 +1,5 @@
 // https://next.router.vuejs.org/zh/api/#addroute-2
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 // 免登陆可进入的页面(白名单)
 const whiteList = ["/login", "/403", "/404"];
 import { ElLoading, ElMessage } from "element-plus";
@@ -22,7 +22,7 @@ const modules = import.meta.glob('../views/*/*.vue');
 /** 数否需要获取授权 */
 (window as any).needAuth = true;
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 })
 /** 每次路由变动开始，可以拦截，等待请求用户信息，获取权限，用户专属菜单等 */

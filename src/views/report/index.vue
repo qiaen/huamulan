@@ -63,14 +63,14 @@
 		<el-pagination class="pt10 txright" @size-change="sizeChange" @current-change="pageChange" :current-page="pageInfo.pageNo" :page-sizes="pageInfo.sizes" :page-size="pageInfo.pageSize" :layout="pageInfo.layout" :total="pageInfo.total">
 		</el-pagination>
         <!-- 修改运维状态 -->
-		<change-status @changeStatus="doByType" :loading="loading1" :dialog="dialog"></change-status>
+		<change-status @back="doByType" v-model="dialog.changeStatus"></change-status>
     </section>
 </template>
 <script lang="ts">
 import { onMounted, reactive, ref, defineAsyncComponent } from 'vue'
 import { ElMessage } from 'element-plus'
-import * as Jobs from '../../api/Jobs'
-import Mixins from '../../utils/Mixins'
+import * as Jobs from '@api/Jobs'
+import Mixins from '@utils/Mixins'
 /** 异步导入，辣眼睛 */
 const changeStatus = defineAsyncComponent(() => import('./compons/change-status.vue'))
 export default {
@@ -87,14 +87,10 @@ export default {
         let dialog = reactive({
             changeStatus: false
         })
-        let loading1 = reactive({
-            changeStatus: false
-        })
         
         /** 请求数据 */
         function get() {
             Mx.xoading.value = true
-			console.log(Mx.xoading.value)
             Jobs.jobList({
 				...params,
                 pageNo: Mx.pageInfo.pageNo,
@@ -116,7 +112,6 @@ export default {
         function setCurrtRow(row: object, type: string) {
             if(type==='status') {
                 dialog.changeStatus = true
-                console.log(dialog.changeStatus)
             }
         }
 		/** 接收状态类型 */
@@ -126,7 +121,7 @@ export default {
 			} else {
 				ElMessage.info(`你点击了禁用，模拟操作，不会真的改变数据`)
 			}
-			dialog.changeStatus = loading1.changeStatus = false
+			dialog.changeStatus  = false
         }
         /** 显示已选择 */
         function showSelected() {
@@ -135,7 +130,6 @@ export default {
         }
         return {
 			// 为什么命名loading，会影响table的v-loading？？？？？？
-			loading1,
 			...Mx,
             params,
             doByType,

@@ -11,7 +11,6 @@ const base: any = {
 	name: '花木兰 - 后台管理系统',
 	/** 目标接口域名 */
 	target: 'http://mulan.diumx.com'
-	// target: 'http://127.0.0.1:8030'
 }
 // https://cn.vitejs.dev/config/#server-proxy
 export default defineConfig({
@@ -44,7 +43,7 @@ export default defineConfig({
 	plugins: [
 		vue()
 	],
-	// base: '/',
+	base: base.isProd ? base.href : '/',
 	build: {
 		rollupOptions: {
 			external: ["vue", "vuex", "element-plus", "vue-router"],

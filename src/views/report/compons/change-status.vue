@@ -1,6 +1,6 @@
 <!-- 修改作业运维状态 -->
 <template>
-	<el-dialog title="状态修改" v-model="dialog.changeStatus" custom-class="zm-dialog task-status" width="500px" append-to-body>
+	<el-dialog title="状态修改" v-model="modelValue" custom-class="zm-dialog task-status" width="500px" append-to-body>
 		<section>
 			<el-form ref="elform" :model="form" :rules="rules" size="small" label-width="90px">
 				<el-form-item label="用户状态" prop="status">
@@ -21,7 +21,7 @@
 					</p>
 				</el-form-item>
 				<el-form-item label=" " class="txright">
-					<el-button @click="dialog.changeStatus = false">取 消</el-button>
+					<el-button @click="modelValue = false">取 消</el-button>
 					<el-button @click="submit" type="primary" icon="el-icon-s-promotion">确定</el-button>
 				</el-form-item>
 			</el-form>
@@ -31,9 +31,10 @@
 <script lang="ts">
 import { reactive, ref, watch } from 'vue'
 export default {
-	props: ['loading', 'dialog'],
+	props: ['dialog', 'modelValue'],
 	name: 'change-status',
-	setup(props, ctx) {
+	emits:['back'],
+	setup(props, {emit}) {
         /** 注意大小写 */
         const elform: any = ref(null)
         /** 校验规则 */
@@ -48,14 +49,12 @@ export default {
         function submit() {
             elform.value.validate((valid: boolean) => {
                 if (valid) {
-                    ctx.emit('changeStatus', form.status)
+                    emit('back', form.status)
                 } else {}
             })
         }
-        watch(()=> props.dialog.changeStatus, (val: boolean)=>{
+        watch(()=> props.modelValue, (val: boolean)=>{
             if(val) {
-                // form.status = null
-                // console.log(elform.value)
                 elform.value && elform.value.resetFields()
             }
         })

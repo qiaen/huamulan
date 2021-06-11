@@ -5,7 +5,7 @@
       <el-tabs
         @tab-click="selectTab"
         @tab-remove="removeTab"
-        v-model="currentTab"
+        :model-value="currentTab"
         type="card"
         closable
       >
@@ -61,9 +61,11 @@ export default {
     let router = useRouter();
     let store = useStore();
     let menuTabs: any = computed(() => store.getters.menuTabs);
+    /** 选中tab跳转页面 */
     function selectTab(tab: any) {
       router.push(tab.paneName);
     }
+    /** 删除tab，涉及到跳转 */
     function removeTab(path: string) {
       store
         .dispatch("layout/RemoveTab", { path })

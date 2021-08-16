@@ -1,8 +1,8 @@
 <template>
 	<menu class="menus shrink0 fcfff hideit scroll-y">
 		<div class="width100 menu-logo">
-			<a :style="{width: isCollapse ? '42px' : ''}" class="fxmiddle flex hideit height100">
-				<img src="/img/dt-7.png" alt="">
+			<a :style="{ width: isCollapse ? '42px' : '' }" class="fxmiddle flex hideit height100">
+				<img src="/img/dt-7.png" alt />
 				<div class="fcfff pl5">
 					<p class="fbold fsize14">花木兰</p>
 					<p class="fsize11">后台管理系统模版Vue3+TS</p>
@@ -15,39 +15,34 @@
 				<el-submenu :key="item.name" v-if="item.child && item.child.length" :index="item.path">
 					<template #title>
 						<i :class="item.icon"></i>
-						<span>{{item.name}}</span>
+						<span>{{ item.name }}</span>
 					</template>
 					<el-menu-item-group>
-						<template #title>{{item.name}}</template>
+						<template #title>{{ item.name }}</template>
 						<el-menu-item v-for="c in item.child" :index="c.path" :key="c.name">
 							<i :class="c.icon"></i>
-							<span>{{c.name}}</span>
+							<span>{{ c.name }}</span>
 						</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
-				<el-menu-item :key="item.name" :index="item.path" v-else>
+				<el-menu-item :key="item.path" :index="item.path" v-else>
 					<i :class="item.icon"></i>
-                    <template #title><span>{{item.name}}</span></template>
+					<template #title>
+						<span>{{ item.name }}</span>
+					</template>
 				</el-menu-item>
 			</template>
 		</el-menu>
 	</menu>
 </template>
-<script>
+<script lang="ts" setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-export default {
-	name: 'menus',
-	setup() {
-		let store = useStore() 
-		return {
-			isCollapse: computed(() => store.getters.isCollapse),
-            currentTab: computed(() => store.getters.currentTab.path),
-            defaultOpeneds: computed(() => store.getters.defaultOpeneds),
-            menus: computed(() => store.getters.menus)
-        }
-	}
-}
+let store = useStore()
+const isCollapse = computed(() => store.getters.isCollapse)
+const currentTab = computed(() => store.getters.currentTab.path)
+const defaultOpeneds = computed(() => store.getters.defaultOpeneds)
+const menus = computed(() => store.getters.menus)
 </script>
 <style lang="less">
 .menus {
@@ -79,7 +74,7 @@ export default {
 .el-menu {
 	border-right: none;
 	.is-active {
-		background-color: #409EFF !important;
+		background-color: #409eff !important;
 	}
 	.iconfont {
 		margin-right: 4px;

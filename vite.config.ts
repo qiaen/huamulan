@@ -21,7 +21,7 @@ export default defineConfig({
             // 项目接口
             '/api': {
                 target: base.target,
-                changeOrigin: true, //是否跨域
+                changeOrigin: true,
                 rewrite: path => path.replace(/^\/api/, '/api'),
                 cookieDomainRewrite: ''
             }
@@ -42,7 +42,7 @@ export default defineConfig({
     plugins: [
         vue()
     ],
-    base: `${base.isProd ? '' : ''}/`,
+    base: '/',
     build: {
         rollupOptions: {
             external: ["vue", "vuex", "element-plus", "vue-router"],
@@ -52,7 +52,7 @@ export default defineConfig({
                     vue: "Vue",
                     vuex: "Vuex",
                     "element-plus": "ElementPlus",
-                    "vue-router": "VueRouter "
+                    "vue-router": "VueRouter"
                 })
             ]
         }

@@ -1,7 +1,21 @@
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, Ref } from 'vue'
 import store from '../store/index'
+interface Mx {
+    /** 主表格数据，用来存放list数据 */
+    mainTable: Ref<any[]>
+    mainSelected: Ref<any[]>
+    mainSelectionChange: Function
+    pageInfo: any
+    xoading: Ref<boolean>
+    init: Function
+    /** 服务器字典 */
+    serviceEnum: any
+    sizeChange: Function
+    pageChange: Function
+    matchEnum: Function
+}
 /** 混入常用变量和方法，如分页相关方法，加载中，主表等 */
-export default function setup(get: Function|void): object {
+export default function (get: Function | void): Mx {
     /** 主表格数据，用来存放list数据 */
     let mainTable = ref([])
     /** 批量选择 */
@@ -12,7 +26,7 @@ export default function setup(get: Function|void): object {
     }
     // let store = useStore()
     /** 表单分页信息, pageNo: 页码, total: 总数, pageSize: 每页数量, layout: 总数, layout: 支持功能, sizes: 可选分页*/
-    let pageInfo = reactive( {
+    let pageInfo = reactive({
         // 当前查看的页码
         pageNo: 1,
         // 表总数量
@@ -49,7 +63,7 @@ export default function setup(get: Function|void): object {
         let enums = serviceEnum.value[type]
         let MN = ''
         if (enums) {
-            for (let {name, value} of enums) {
+            for (let { name, value } of enums) {
                 if (value == key) {
                     MN = name
                     break
@@ -58,7 +72,7 @@ export default function setup(get: Function|void): object {
         }
         return MN
     }
-    
+
     return {
         mainTable,
         mainSelected,

@@ -23,7 +23,7 @@ const modules = import.meta.glob('../views/*/*.vue');
 (window as any).needAuth = true;
 const router = createRouter({
     history: createWebHistory(),
-    routes,
+    routes
 })
 /** 每次路由变动开始，可以拦截，等待请求用户信息，获取权限，用户专属菜单等 */
 router.beforeEach(async (to, from) => {
@@ -31,14 +31,14 @@ router.beforeEach(async (to, from) => {
     if (!whiteList.includes(to.path)) {
         /** 需要授权登录 */
         if ((window as any).needAuth) {
-            loading = loadingFun();
-            console.log("verify the login information at initialization");
-            let menus: any = [];
+            loading = loadingFun()
+            console.log("verify the login information at initialization")
+            let menus: any = []
             await store
                 .dispatch("api/GetUserInfo")
                 .then((res) => {
                     if (res.code == 200) {
-                        (window as any).needAuth = false;
+                        (window as any).needAuth = false
                         menus = res.data.menus;
                         /** 放在window下其实不安全，最好放到vuex里 */
                         (window as any).userPosition = res.data.position;
@@ -51,7 +51,7 @@ router.beforeEach(async (to, from) => {
                 (loading as any).close();
                 return {
                     path: "/login",
-                };
+                }
             } else {
                 /** 用户已经登录，在这里可以继续异步做登录后的事情，比如获取全局枚举等 */
                 await store
@@ -78,9 +78,9 @@ router.beforeEach(async (to, from) => {
 
             /**  递归路由 */
             let temp = depthRoute(menus, []);
-            routes[0].children = [...temp, ...routes[0].children];
+            routes[0].children = [...temp, ...routes[0].children]
             /** 添加（重写）动态路由 */
-            await router.addRoute(routes[0]);
+            await router.addRoute(routes[0])
             /** 生成菜单，排除不需要显示的菜单 */
             store.dispatch(
                 "layout/SetMenus",
@@ -92,7 +92,7 @@ router.beforeEach(async (to, from) => {
             (loading as any).close();
             // 清除全局等待函数
             loading = null;
-            return { path: to.path };
+            return { path: to.path }
         } else {
             // 不需要登录，直接进入下一步，在vue-router3中，可以return true也可以不做任何操作默认进入下一个路由
         }
@@ -107,12 +107,12 @@ router.afterEach((to: any) => {
         icon: (to.meta || {}).icon,
     });
     (document as any).title = to.name ? `${to.name} - 花木兰` : '花木兰 - 后台管理系统模版Vue3+TS'
-});
+})
 /**  递归方法，写入路由信息 */
 function depthRoute(menus: any, routers: any) {
     menus.forEach((menu: any) => {
         if (menu.child && menu.child.length) {
-            depthRoute(menu.child, routers);
+            depthRoute(menu.child, routers)
         } else {
             routers.push({
                 path: menu.path.substring(1),
@@ -123,11 +123,11 @@ function depthRoute(menus: any, routers: any) {
                     role: menu.role,
                     alive: menu.alive || false,
                     title: menu.name,
-                    icon: menu.icon,
+                    icon: menu.icon
                 },
-            });
+            })
         }
-    });
-    return routers;
+    })
+    return routers
 }
-export default router;
+export default router

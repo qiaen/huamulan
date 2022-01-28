@@ -15,7 +15,7 @@
             <div class="middle">{{ userInfo.name || '' }}</div>
             <el-dropdown class="fxmiddle" @command="logout">
                 <span class="el-dropdown-link middle acc-avatar pointer">
-                    <img :src="userInfo.avatar" alt />
+                    <img :src="userInfo.avatar" alt="头像" />
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -29,7 +29,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { reactive, computed, ref, Ref } from 'vue'
+import { computed, ref, Ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from "vue-router"
 import Storage from '@utils/Storage'

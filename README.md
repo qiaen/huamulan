@@ -1,12 +1,12 @@
 <h1><img height="52" src="https://user-content.gitlab-static.net/8ae8981a41b6b76e8fab9a3528e79364fb55664d/68747470733a2f2f6173736574732e6769746c61622d7374617469632e6e65742f75706c6f6164732f2d2f73797374656d2f70726f6a6563742f6176617461722f32353535303235342f64742d372e706e673f77696474683d323030"> 花木兰 - 后台管理系统模版</h1>
-
+master
 > 是一个基于Vue3+TS+Vite的前端系统管理框架，集成状态管理，动态路由，自主登录，权限控制等功能
 
 在线预览[http://mulan.diumx.com](http://mulan.diumx.com "http://lanling.diumx.com")
 
 git仓库[https://github.com/qiaen/huamulan](https://github.com/qiaen/huamulan "https://github.com/qiaen/huamulan")
 ## Build Setup
-
+# 注意，huamulan代码仓库使用的是测试版的element plus，目前预览的网站使用了最新的element plus，代码仓库为https://github.com/qiaen/luna，所以建议点击https://github.com/qiaen/luna查看最新的代码信息
 ``` bash
 # install dependencies
 npm install

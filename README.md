@@ -6,7 +6,8 @@ master
 
 git仓库[https://github.com/qiaen/huamulan](https://github.com/qiaen/huamulan "https://github.com/qiaen/huamulan")
 ## Build Setup
-# 注意，huamulan代码仓库使用的是测试版的element plus，目前预览的网站使用了最新的element plus，代码仓库为https://github.com/qiaen/luna，所以建议点击https://github.com/qiaen/luna查看最新的代码信息
+# 注意，huamulan代码仓库使用的是测试版的element plus，目前预览的网站使用了最新的element plus，代码仓库为https://github.com/qiaen/luna
+# 所以建议点击https://github.com/qiaen/luna 查看最新的代码信息
 ``` bash
 # install dependencies
 npm install
